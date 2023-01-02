@@ -1,0 +1,7 @@
+@import "../lib/style-deps";
+
+.gmosc-wrapper {
+    @include pos(0, 0, 0, 0);
+    background: rgba(col_green('g1'), .5);
+    backdrop-filter: blur(4px);
+}

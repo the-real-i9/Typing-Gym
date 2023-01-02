@@ -1,4 +1,5 @@
 import {useEffect, useRef, useState} from "react"
+import GameOverStatsCard from "./GameOverStatsCard"
 import "./GamePlay.scss"
 
 function GamePlay() {
@@ -50,14 +51,15 @@ function GamePlay() {
 			<div className="gravity-ball-wrapper">
 				<div className="tff-value">25N</div>
 				<div className="space">
-          <div className="ball">
-            <span className="middle">
-              <span className="inner"></span>
-            </span>
-          </div>
-        </div>
+					<div className="ball">
+						<span className="middle">
+							<span className="inner"></span>
+						</span>
+					</div>
+				</div>
 				<div className="egp-value">50N</div>
 			</div>
+			<GameOverStatsCard />
 		</div>
 	)
 }
