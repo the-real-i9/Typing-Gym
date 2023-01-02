@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import passages from '../lib/passages'
 import './Home.scss'
 
 function Home() {

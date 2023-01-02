@@ -1,0 +1,48 @@
+@import '../lib/style-deps';
+
+.gameplay-wrapper {
+    @include flex;
+    @include size($height: 100%);
+}
+
+.paragraph-text-wrapper {
+    flex: 3;
+    padding: 15px 25px;
+    border-right: 1px solid col_grey('g4');
+}
+
+.gravity-ball-wrapper {
+    flex: 1;
+    padding: 15px 25px;
+    @include flex(space-between, center, column);
+}
+
+.typing-force-field {
+    flex: 1;
+    @include flex(space-between, center, column);
+    .tff-value {
+        text-align: center;
+    }
+
+    div:last-child {
+        // background: red;
+        @include size(150px, auto);
+        flex: 1;
+        border-top: 2px solid col_green('g5');
+    }
+}
+
+.earth-grav-pull {
+    @include flex(space-between, center, column);
+    flex: 1;
+    .egp-value {
+        text-align: center;
+    }
+
+    div:first-child {
+        // background: #000;
+        @include size(150px, auto);
+        flex: 1;
+        border-bottom: 2px solid rgb(187, 6, 6);
+    }
+}

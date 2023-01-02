@@ -4,4 +4,9 @@
     @include size(1000px, 100%);
     margin: 0 auto;
     background: #fff;
+    @include flex($fd: column);
+
+    > div:last-child {
+        flex: 1;
+    }
 }

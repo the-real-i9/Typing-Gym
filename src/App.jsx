@@ -7,12 +7,12 @@ import Home from "./components/Home"
 import AppContext from "./lib/AppContext"
 
 function App() {
-	const [location, setLocation] = useState("home")
+	const [location, setLocation] = useState("gameplay")
 
 	return (
 		<AppContext.Provider value={{location, setLocation}}>
 			<div className="app-wrapper">
-				{!["gameplay"].includes(location) ? <Header /> : null}
+				<Header />
 				{location === "home" ? (
 					<Home />
 				) : location === "gameplay" ? (

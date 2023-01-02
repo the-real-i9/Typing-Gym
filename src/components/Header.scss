@@ -16,6 +16,8 @@
     @include font(16px, 900);
 }
 
+/* normal header */
+
 .nav-wrapper {
     flex: 2;
     @include flex;
@@ -36,13 +38,36 @@
     }
 }
 
-.user-account-wrapper {
+.user-profile-wrapper {
     flex: 1;
     @include flex(flex-end, center);
 }
 
-.user-circle {
+.profile-circle {
     @include size(40px);
     @include flex(center, center);
     background: col_grey('g2');
+}
+
+/* gameplay header */
+.game-rel {
+    @include flex($ai: center);
+}
+
+.clock {
+    width: 200px;
+    @include font(16px, 600);
+}
+
+.time-count {
+    margin-left: 5px;
+}
+
+.game-controls {
+    @include flex($ai: center);
+}
+
+.play-pause, .stop {
+    @include size(40px);
+    @include flex(center, center);
 }
