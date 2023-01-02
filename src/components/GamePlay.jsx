@@ -59,7 +59,7 @@ function GamePlay() {
 				</div>
 				<div className="egp-value">50N</div>
 			</div>
-			<GameOverStatsCard />
+			{/* <GameOverStatsCard /> */}
 		</div>
 	)
 }

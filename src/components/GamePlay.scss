@@ -24,9 +24,10 @@
 .space {
     width: 150px;
     flex: 1;
-    border-top: 2px solid col_green('g5');
-    border-bottom: 2px solid rgb(232, 6, 6);
+    border-top: 3px solid col_green('g7');
+    border-bottom: 3px solid rgb(232, 6, 6);
     position: relative;
+    border-radius: 9px;
     @include flex(center);
 }
 
@@ -35,7 +36,7 @@
     @include size(50px);
     background: col_green('g7');
     @include flex(center, center);
-    box-shadow: 0 0 5px col_grey('g6');
+    box-shadow: 0 0 10px col_grey('g5');
     
     .middle {
         @include size(30px);
