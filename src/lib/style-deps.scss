@@ -1,0 +1,36 @@
+$green: (
+    "g1": #E4F5EE,
+    "g2": #C6F5E3,
+    "g3": #9DF5D3,
+    "g4": #60F5BA,
+    "g5": #36EDA5,
+    "g6": #2DC488,
+    "g7": #00AD68,
+    "g8": #008C54,
+    "g9": #00693F,
+    "g10": #004A2C,
+    "g11": #00331E,
+    "g12": #001F12
+);
+
+$grey: (
+    "g1": #F7F7F7,
+    "g2": #F5F5F5,
+    "g3": #F0F0F0,
+    "g4": #EBEBEB,
+    "g5": #D6D6D6,
+    "g6": #BFBFBF,
+    "g7": #9E9E9E,
+    "g8": #696969,
+    "g9": #333333,
+    "g10": #1F1F1F,
+    "g11": #0F0F0F,
+);
+
+@function col_green($prop) {
+    @return map-get($green, $prop)
+}
+
+@function col_grey($prop) {
+    @return map-get($grey, $prop)
+}

@@ -1,5 +1,5 @@
 {
-  "name": "type-speed-game",
+  "name": "type-speed-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,7 +11,7 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sass": "^1.56.1"
+    "sass": "^1.57.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.24",
