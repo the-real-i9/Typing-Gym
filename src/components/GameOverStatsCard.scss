@@ -4,4 +4,60 @@
     @include pos(0, 0, 0, 0);
     background: rgba(col_green('g1'), .5);
     backdrop-filter: blur(4px);
+    @include flex(center, center, column);
+}
+
+.gmo-text {
+    @include font(42px, 600);
+}
+
+.stats-card-wrapper {
+    margin-top: 20px;
+}
+
+.stats-card {
+    @include size(300px, auto);
+    background: #fff;
+    border-radius: 9px;
+    padding: 10px 10px;
+}
+
+.sc-title {
+    text-align: center;
+    @include font(18px, 600);
+}
+
+.speed-gforce-group {
+    @include flex(center, center);
+    margin: 10px 0 5px;
+    > span {
+        width: 1px;
+        height: 100px;
+        background: #000;
+        margin: 0 10px;
+    }
+}
+
+.speed {
+    text-align: right;
+}
+
+.label {
+    text-transform: uppercase;
+    @include font(12px, 600);
+}
+
+.value {
+    @include font(36px, 600);
+
+    small {
+        @include font(12px);
+        text-transform: uppercase;
+    }
+}
+
+.accuracy {
+    text-align: center;
+    margin: 5px 0;
+    @include font(14px, 600)
 }

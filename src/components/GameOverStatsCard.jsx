@@ -1,4 +1,4 @@
-import './GameOverStatsCard.scss'
+import "./GameOverStatsCard.scss"
 
 function GameOverStatsCard() {
 	return (
@@ -6,17 +6,19 @@ function GameOverStatsCard() {
 			<div className="gmo-text">Game Over</div>
 			<div className="stats-card-wrapper">
 				<div className="stats-card">
-					<div className="sc-title">Stats</div>
-					<div className='speed-gforce-group'>
+					<div className="sc-title">Performance</div>
+					<div className="speed-gforce-group">
 						<div className="speed">
-							Speed <br /> 40wpm
+							<div className="label">Speed</div>
+							<div className="value">40<small>(wpm)</small></div>
 						</div>
-                        <span></span>
+						<span></span>
 						<div className="grav-force">
-							G-Force <br /> 90N
+							<div className="label">G-Force</div>
+							<div className="value">90<small>(new.)</small></div>
 						</div>
 					</div>
-					<div className="accuracy">Accuracy: 98%</div>
+					<div className="accuracy">Accuracy: <span>98%</span></div>
 				</div>
 			</div>
 		</div>
