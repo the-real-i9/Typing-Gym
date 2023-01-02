@@ -39,13 +39,10 @@
         margin-top: 4px;
         border-radius: 9px;
         padding-left: 10px;
-        outline: none;
         border: 3px solid col_grey('g3');
         @include font(14px, 600);
 
-        &::-webkit-input-spinner {
-            appearance: none;
-        }
+        
     }
 }
 
