@@ -17,32 +17,34 @@
     @include flex(space-between, center, column);
 }
 
-.typing-force-field {
-    flex: 1;
-    @include flex(space-between, center, column);
-    .tff-value {
-        text-align: center;
-    }
-
-    div:last-child {
-        // background: red;
-        @include size(150px, auto);
-        flex: 1;
-        border-top: 2px solid col_green('g5');
-    }
+.tff-value, .egp-value {
+    text-align: center;
 }
 
-.earth-grav-pull {
-    @include flex(space-between, center, column);
+.space {
+    width: 150px;
     flex: 1;
-    .egp-value {
-        text-align: center;
-    }
+    border-top: 2px solid col_green('g5');
+    border-bottom: 2px solid rgb(232, 6, 6);
+    position: relative;
+    @include flex(center);
+}
 
-    div:first-child {
-        // background: #000;
-        @include size(150px, auto);
-        flex: 1;
-        border-bottom: 2px solid rgb(187, 6, 6);
+.ball {
+    @include pos(calc(50% - 50px));
+    @include size(50px);
+    background: col_green('g7');
+    @include flex(center, center);
+    box-shadow: 0 0 5px col_grey('g6');
+    
+    .middle {
+        @include size(30px);
+        background: col_green('g5');
+        @include flex(center, center);
+    }
+    
+    .inner {
+        @include size(10px);
+        background: col_green('g3');
     }
 }
