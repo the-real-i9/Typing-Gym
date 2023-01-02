@@ -1,4 +1,4 @@
-@import '../lib/style-deps';
+@import './lib/style-deps';
 
 .app-wrapper {
     @include size(1000px, 100%);

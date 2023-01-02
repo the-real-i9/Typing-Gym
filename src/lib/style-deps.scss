@@ -38,4 +38,18 @@ $grey: (
 @mixin size($width, $height: auto) {
     width: $width;
     height: $height;
+};
+
+@mixin flex($jc: null, $ai: null, $fd: null, $fw: null) {
+    display: flex;
+    justify-content: $jc;
+    align-items: $ai;
+    flex-direction: $fd;
+    flex-wrap: $fw;
+}
+
+@mixin font($sz: null, $wg: null, $lh: null) {
+    font-size: $sz;
+    font-weight: $wg;
+    line-height: $lh;
 }
