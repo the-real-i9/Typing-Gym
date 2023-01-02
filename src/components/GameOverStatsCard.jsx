@@ -6,7 +6,7 @@ function GameOverStatsCard() {
 			<div className="gmo-text">Game Over</div>
 			<div className="stats-card-wrapper">
 				<div className="stats-card">
-					<div className="sc-title">Performance</div>
+					<div className="sc-title">Result</div>
 					<div className="speed-gforce-group">
 						<div className="speed">
 							<div className="label">Speed</div>
@@ -19,6 +19,7 @@ function GameOverStatsCard() {
 						</div>
 					</div>
 					<div className="accuracy">Accuracy: <span>98%</span></div>
+                    <button className="view-stats">View Stats</button>
 				</div>
 			</div>
 		</div>

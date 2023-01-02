@@ -20,6 +20,7 @@
     background: #fff;
     border-radius: 9px;
     padding: 10px 10px;
+    @include flex(center, center, column);
 }
 
 .sc-title {
@@ -60,4 +61,12 @@
     text-align: center;
     margin: 5px 0;
     @include font(14px, 600)
+}
+
+.view-stats {
+    border-radius: 9px;
+    background: #000;
+    @include font(12px, 600);
+    color: #fff;
+    padding: 7px 12px;
 }
