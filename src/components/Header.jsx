@@ -2,8 +2,8 @@ import './Header.scss'
 
 function Header() {
   return (
-    <div className='app-header'>
-        
+    <div className='header-wrapper'>
+
     </div>
   )
 }

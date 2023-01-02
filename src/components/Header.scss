@@ -1,0 +1,6 @@
+@import '../lib/style-deps';
+
+.header-wrapper {
+    @include size(100%, 32px);
+    background: #000;
+}

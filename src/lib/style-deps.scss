@@ -29,8 +29,13 @@ $grey: (
 
 @function col_green($prop) {
     @return map-get($green, $prop)
-}
+};
 
 @function col_grey($prop) {
     @return map-get($grey, $prop)
+};
+
+@mixin size($width, $height: auto) {
+    width: $width;
+    height: $height;
 }
