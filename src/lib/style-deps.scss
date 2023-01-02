@@ -35,7 +35,7 @@ $grey: (
     @return map-get($grey, $prop)
 };
 
-@mixin size($width, $height: false) {
+@mixin size($width: null, $height: false) {
     width: $width;
     @if $height {
         height: $height;

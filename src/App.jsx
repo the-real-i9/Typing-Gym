@@ -1,6 +1,6 @@
 import {useState} from "react"
 import "./App.scss"
-import Analytics from "./components/Analytics"
+import Stats from "./components/Stats"
 import GamePlay from "./components/GamePlay"
 import Header from "./components/Header"
 import Home from "./components/Home"
@@ -17,8 +17,8 @@ function App() {
 					<Home />
 				) : location === "gameplay" ? (
 					<GamePlay />
-				) : location === "analytics" ? (
-					<Analytics />
+				) : location === "stats" ? (
+					<Stats />
 				) : null}
 			</div>
 		</AppContext.Provider>
