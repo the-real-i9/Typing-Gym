@@ -35,9 +35,14 @@ $grey: (
     @return map-get($grey, $prop)
 };
 
-@mixin size($width, $height: auto) {
+@mixin size($width, $height: false) {
     width: $width;
-    height: $height;
+    @if $height {
+        height: $height;
+    } @else {
+        height: $width;
+        border-radius: 50%;
+    }
 };
 
 @mixin flex($jc: null, $ai: null, $fd: null, $fw: null) {
@@ -52,4 +57,12 @@ $grey: (
     font-size: $sz;
     font-weight: $wg;
     line-height: $lh;
+}
+
+@mixin pos($t: null, $l: null, $b: null, $r: null) {
+    position: absolute;
+    top: $t;
+    left: $l;
+    bottom: $b;
+    right: $r;
 }

@@ -1,5 +1,6 @@
 import {useContext} from "react"
 import AppContext from "../lib/AppContext"
+import { ActivityIcon, HomeIcon, UserIcon } from "../lib/Icons"
 import "./Header.scss"
 
 function Header() {
@@ -16,18 +17,22 @@ function Header() {
 					className={`nav-item ${location === "home" ? "active" : ""}`}
 					id="nav-item-home"
 				>
-					Home
+          <HomeIcon />
+					<span className="text">Home</span>
 				</span>
 				<span
 					onClick={() => setLocation("analytics")}
 					className={`nav-item ${location === "analytics" ? "active" : ""}`}
 					id="nav-item-analytics"
 				>
-					Analytics
+          <ActivityIcon />
+					<span className="text">Analytics</span>
 				</span>
 			</nav>
 			<div className="user-account-wrapper">
-        
+        <button className="user-circle">
+          <UserIcon />
+        </button>
       </div>
 		</div>
 	)
