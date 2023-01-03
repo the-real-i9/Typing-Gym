@@ -19,8 +19,6 @@ Parameters:
 - Highest Time lasted
 - Highest gravitational force reached.
 
-Logic:
-- Gravitational force(GF), is subtracted from, Speed + Accuracy or Typing force(TF), the result is converted into height(H) and then added to the current height of the ball, which either increases it of decreases it.
 
 # UI CONTENT & LAYOUT
 ## Navigation: Tabs
@@ -58,3 +56,63 @@ Logic:
 - This panel tells you about how to play the game and what it is about.\
 *Considering the fact that existing users already knows how this game works*
 - This panel can be revealed or hidden
+
+# Logic: Calculating Parameters
+- 1Word === 5keystrokes including space and punctuations. Now how?
+    - When the user presses space, if the word is correct, add it to the number of characters typed correctly, else don't add it.
+    - Math.trunc(Divide the no. of characters typed by 5) and check the current time elapesed.
+    - This means the user has typed that many words, in that time.
+    - Now use this parameters to find the many words the user would have typed, in 1munite.
+    - if 2words in 10s, then in 60s, it will be 12words, hence 12wpm
+    
+- Accuracy: Ratio of correctly typed characters, to the total number of words.
+
+- Assuming
+    - 100% === (500)wpm
+    - 1% === (5)wpm
+
+- Typing force
+    - 100% === (beatspeed + 10)wpm or greater
+    - 1% === ((beatspeed + 10)/100)wpm
+    - so if the user is typing at 10wpm
+    - (10wpm * 1%)/((beatspeed + 10)/100)wpm = (x)%
+
+- Grav force
+    - 1% === 0.5s
+
+- once a change occurs in grav force or typing force, the ball chages position
+- `calc(100% - tf% + gf% - 50px)`
+
+
+# Logic: Typing
+## So how...
+* select a random paragraph text
+* split it into words
+* set the lastWordChar
+* map each word into an element of <span id='word-{index}'>
+* "at game init" and "when space is clicked go to the next word", split id='word-0' and id='word-{next-index} [currentWord] into its characters respectively
+* map each character of the [currentWord] in to an element of <span id='word-{currentWord}-char-{index}'
+* the above procedure will recall on every "space" click, while incrementing the current word
+* currentWord ref will be modified
+
+## when space is clicked 
+* validate the currentWordChara with the typedChars
+* if currentWordChars === typedChars: replace the element with the splitted word, with an element with the non-splitted word, and highlight that it is correct.
+* if the currentWord === lastWord: then we need to fill the box with another random paragraph
+* else: increment the current word, and call the split effect again.
+
+## when the user enters characters
+* prevent the user from pressing "cursor changing keys", and watch for "space key"
+* store these characters in a hidden text box
+* validate it with the current word and current char
+* if it matches: give the char element a "correct highlight"
+* else: give the char element a "wrong highight"
+
+## how do you validate
+* compare typedChars with the currWordChars
+* compare the corresponding indexes
+
+## example word: cat
+* `typedWord[indextOfLastTypedWordChar] === word[current]char[indextOfLastTypedWordChar]`
+* highlight the character on this index and remove hihlights on the successive ones(this is in case of a backspace)
+

@@ -5,10 +5,45 @@
     @include size($height: 100%);
 }
 
-.paragraph-text-wrapper {
+.paragraph-text_input-wrapper {
     flex: 3;
     padding: 15px 25px;
     border-right: 1px solid col_grey('g4');
+    @include flex($fd: column);
+}
+
+.paragraph-text-wrapper {
+    flex: 1;
+    @include font(19px);
+
+    span.correct, span.correct-char {
+        color: col_green('g5');
+    }
+
+    span.wrong {
+        color: rgb(255, 16, 16);
+    }
+
+    span.wrong-char, span.wrong-prev-chars {
+        text-decoration: underline;
+        text-decoration-color: rgb(255, 16, 16);
+        text-decoration-thickness: 2px;
+    }
+
+}
+
+.word-input-wrapper {
+    height: 50px;
+    border: 2px solid col_green('g3');
+    border-radius: 9px;
+    margin-bottom: 100px;
+
+    input {
+        @include size(100%, 100%);
+        @include font(18px);
+        background: transparent;
+        padding: 0 10px;
+    }
 }
 
 .gravity-ball-wrapper {
@@ -17,7 +52,8 @@
     @include flex(space-between, center, column);
 }
 
-.tff-value, .egp-value {
+.tff-value,
+.egp-value {
     text-align: center;
 }
 
@@ -37,13 +73,13 @@
     background: col_green('g7');
     @include flex(center, center);
     box-shadow: 0 0 10px col_grey('g5');
-    
+
     .middle {
         @include size(30px);
         background: col_green('g5');
         @include flex(center, center);
     }
-    
+
     .inner {
         @include size(10px);
         background: col_green('g3');
