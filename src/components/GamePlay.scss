@@ -30,6 +30,11 @@
         text-decoration-thickness: 2px;
     }
 
+    span.press-space {
+        @include font(12px, 600);
+        color: col_grey('g6');
+    }
+
 }
 
 .word-input-wrapper {

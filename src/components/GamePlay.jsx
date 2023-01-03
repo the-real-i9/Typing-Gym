@@ -47,9 +47,18 @@ function GamePlay() {
 				} else {
 					setWrongWordIndexes((prev) => [...prev, currWordIndex])
 				}
+
 				// reset
-				setTypedChars("")
-				setCurrWordIndex((prev) => prev + 1)
+				if (currWordIndex === paragTextWords.length - 1) {
+					// paragraph done
+					fillBox()
+					setTypedChars("")
+					setCurrWordIndex(0)
+				} else {
+					// word done
+					setTypedChars("")
+					setCurrWordIndex((prev) => prev + 1)
+				}
 			}
 		}
 	}
@@ -63,7 +72,7 @@ function GamePlay() {
 							currWordIndex === index ? (
 								<span key={`word-${index}`} id={`word-${index}`}>
 									{word.split("").map((char, chIndex) =>
-										typedChars && typedChars[chIndex] === char ? (
+										typedChars && typedChars[chIndex] === char && word.startsWith(typedChars) ? (
 											<span
 												className="correct-char"
 												key={`w-${index}-c-${chIndex}`}
@@ -112,6 +121,7 @@ function GamePlay() {
 								</span>
 							)
 						)}
+						<span className="press-space"> [SPACE]</span>
 					</p>
 				</div>
 				<div className="word-input-wrapper">
