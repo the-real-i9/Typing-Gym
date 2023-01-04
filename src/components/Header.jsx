@@ -1,10 +1,10 @@
 import {Fragment, useContext, useEffect, useRef, useState} from "react"
 import AppContext from "../lib/AppContext"
-import {ActivityIcon, HomeIcon, PauseIcon, ProfileIcon, StopIcon} from "../lib/Icons"
+import {ActivityIcon, HomeIcon, PauseIcon, PlayIcon, ProfileIcon, StopIcon} from "../lib/Icons"
 import "./Header.scss"
 
 function Header() {
-	const {location, setLocation } = useContext(AppContext)
+	const {location, setLocation, gameState, setGameState } = useContext(AppContext)
 	const formatTimeNum = (timeNum) => new Intl.NumberFormat('en-US', { minimumIntegerDigits: 2 }).format(timeNum)
 
 	const [{ currMin, currSec }, setCurrTime] = useState({ currMin: 0, currSec: 0 })
@@ -13,6 +13,7 @@ function Header() {
 
 	useEffect(() => {
 		const intv = setInterval(() => {
+			if (gameState === 'paused') return
 			timeElapsed.current++
 
 			setCurrTime(() => {
@@ -27,7 +28,7 @@ function Header() {
 		return () => {
 			clearInterval(intv)
 		}
-	}, [])
+	}, [gameState])
 
 	return (
 		<div className="header-wrapper">
@@ -41,8 +42,8 @@ function Header() {
 						<span className="time-count">{`${formatTimeNum(currMin)}:${formatTimeNum(currSec)}`}</span>
 					</div>
 					<div className="game-controls">
-						<button className="play-pause">
-							<PauseIcon />
+						<button className="play-pause" onClick={() => setGameState(gameState === 'playing' ? "paused" : "playing")}>
+							{gameState === 'playing' ? <PauseIcon /> : <PlayIcon />}
 						</button>
 						<button className="stop">
 							<StopIcon />

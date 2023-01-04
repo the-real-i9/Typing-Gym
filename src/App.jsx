@@ -9,10 +9,11 @@ import AppContext from "./lib/AppContext"
 function App() {
 	const [location, setLocation] = useState("gameplay")
 	const [beatSpeed, setBeatSpeed] = useState(10)
+	const [gameState, setGameState] = useState("paused")
 	
 	return (
 		<AppContext.Provider
-			value={{location, setLocation, beatSpeed, setBeatSpeed}}
+			value={{location, setLocation, beatSpeed, setBeatSpeed, gameState, setGameState}}
 		>
 			<div className="app-wrapper">
 				<Header />

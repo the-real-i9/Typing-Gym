@@ -1,10 +1,13 @@
-import {useEffect, useRef, useState} from "react"
+import {useContext, useEffect, useRef, useState} from "react"
+import AppContext from "../lib/AppContext"
 import paragraphTexts from "../lib/paragraph-texts"
 import GameOverStatsCard from "./GameOverStatsCard"
 import "./GamePlay.scss"
 import GravitySpace from "./GravitySpace"
 
 function GamePlay() {
+	const { gameState } = useContext(AppContext)
+
 	const [paragTextWords, setParagTextWords] = useState([])
 
 	const [currWordIndex, setCurrWordIndex] = useState(0)
@@ -37,6 +40,7 @@ function GamePlay() {
 
 	useEffect(() => {
 		const intv = setInterval(() => {
+			if (gameState === 'paused') return
 			setTimeElapsed((prev) => {
 				const timeElp = prev + 1
 				const wpm = Math.trunc(
@@ -51,7 +55,7 @@ function GamePlay() {
 		return () => {
 			clearInterval(intv)
 		}
-	}, [])
+	}, [gameState])
 
 	const handleWordInputChange = (ev) => {
 		setTypedChars(ev.target.value)
@@ -172,7 +176,7 @@ function GamePlay() {
 								</span>
 							)
 						)}
-						<span className="press-space"> [SPACE]</span>
+						{paragTextWords.length ? <span className="press-space"> [SPACE]</span> : ""}
 					</p>
 				</div>
 				<div className="word-input-wrapper">
@@ -182,7 +186,7 @@ function GamePlay() {
 						onChange={handleWordInputChange}
 						onKeyDown={handleWordInputKeyDown}
 						value={typedChars}
-						autoComplete="off"
+						disabled={gameState === 'paused'}
 					/>
 				</div>
 			</div>
