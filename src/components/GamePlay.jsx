@@ -2,6 +2,7 @@ import {useEffect, useRef, useState} from "react"
 import paragraphTexts from "../lib/paragraph-texts"
 import GameOverStatsCard from "./GameOverStatsCard"
 import "./GamePlay.scss"
+import GravitySpace from "./GravitySpace"
 
 function GamePlay() {
 	const [paragTextWords, setParagTextWords] = useState([])
@@ -16,7 +17,9 @@ function GamePlay() {
 
 	const [typedChars, setTypedChars] = useState("")
 
-	const timeElapsed = useRef(0)
+	const [timeElapsed, setTimeElapsed] = useState(0)
+
+	const [typingSpeed, setTypingSpeed] = useState(0)
 
 	const fillBox = () => {
 		const randParagText =
@@ -34,7 +37,15 @@ function GamePlay() {
 
 	useEffect(() => {
 		const intv = setInterval(() => {
-			timeElapsed.current += 500 / 1000
+			setTimeElapsed((prev) => {
+				const timeElp = prev + 500 / 1000
+				const wpm = Math.trunc(
+					((correctCharsTypedCount.current / 5) * 60) / timeElp
+				)
+				setTypingSpeed(wpm)
+
+				return timeElp
+			})
 		}, 500)
 
 		return () => {
@@ -58,11 +69,6 @@ function GamePlay() {
 				} else {
 					setWrongWordIndexes((prev) => [...prev, currWordIndex])
 				}
-
-				const wpm = Math.trunc(
-					((correctCharsTypedCount.current / 5) * 60) / timeElapsed.current
-				)
-				console.log(wpm)
 
 				// reset
 				if (currWordIndex === paragTextWords.length - 1) {
@@ -93,7 +99,11 @@ function GamePlay() {
 									{word.split("").map((char, chIndex) => {
 										if (typedChars) {
 											if (typedChars[chIndex]) {
-												if (typedChars[chIndex] === char && word.slice(0, chIndex) === typedChars.slice(0, chIndex)) {
+												if (
+													typedChars[chIndex] === char &&
+													word.slice(0, chIndex) ===
+														typedChars.slice(0, chIndex)
+												) {
 													return (
 														<span
 															className="correct-char"
@@ -176,17 +186,7 @@ function GamePlay() {
 					/>
 				</div>
 			</div>
-			<div className="gravity-ball-wrapper">
-				<div className="tff-value">25N</div>
-				<div className="space">
-					<div className="ball">
-						<span className="middle">
-							<span className="inner"></span>
-						</span>
-					</div>
-				</div>
-				<div className="egp-value">50N</div>
-			</div>
+			<GravitySpace typingSpeed={typingSpeed} timeElapsed={timeElapsed} />
 			{/* <GameOverStatsCard /> */}
 		</div>
 	)

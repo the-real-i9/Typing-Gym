@@ -8,9 +8,12 @@ import AppContext from "./lib/AppContext"
 
 function App() {
 	const [location, setLocation] = useState("gameplay")
+	const [beatSpeed, setBeatSpeed] = useState(10)
 
 	return (
-		<AppContext.Provider value={{location, setLocation}}>
+		<AppContext.Provider
+			value={{location, setLocation, beatSpeed, setBeatSpeed}}
+		>
 			<div className="app-wrapper">
 				<Header />
 				{location === "home" ? (

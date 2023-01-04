@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useContext } from 'react'
+import AppContext from '../lib/AppContext'
 import './Home.scss'
 
 function Home() {
-  const [beatSpeed, setBeatSpeed] = useState(10)
+  const { beatSpeed, setBeatSpeed } = useContext(AppContext)
 
   return (
     <div className='home-wrapper'>
