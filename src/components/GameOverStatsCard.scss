@@ -3,7 +3,7 @@
 .gmosc-wrapper {
     @include pos(0, 0, 0, 0);
     background: rgba(col_green('g1'), .5);
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(8px);
     @include flex(center, center, column);
 }
 
@@ -21,6 +21,7 @@
     border-radius: 9px;
     padding: 10px 10px;
     @include flex(center, center, column);
+    box-shadow: 0 0 10px col_grey('g3');
 }
 
 .sc-title {

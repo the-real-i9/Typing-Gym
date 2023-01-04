@@ -6,30 +6,34 @@ import "./GamePlay.scss"
 import GravitySpace from "./GravitySpace"
 
 function GamePlay() {
-	const { gameState } = useContext(AppContext)
+	const {gameState, setGameState} = useContext(AppContext)
 
 	const [paragTextWords, setParagTextWords] = useState([])
 
-	const [currWordIndex, setCurrWordIndex] = useState(0)
+	const [typedChars, setTypedChars] = useState("")
 
+	const correctCharsTypedCount = useRef(0)
+	const allCharsTypedCount = useRef(0)
+
+	const [typingSpeed, setTypingSpeed] = useState(0)
+
+	const [currWordIndex, setCurrWordIndex] = useState(0)
 	const [correctWordIndexes, setCorrectWordIndexes] = useState([])
 	const [wrongWordIndexes, setWrongWordIndexes] = useState([])
 
-	const correctCharsTypedCount = useRef(0)
-	const totalCharsCount = useRef(0)
-
-	const [typedChars, setTypedChars] = useState("")
-
 	const [timeElapsed, setTimeElapsed] = useState(0)
 
-	const [typingSpeed, setTypingSpeed] = useState(0)
+	const [countdownToStart, setCountdownToStart] = useState(3)
+
+	const [gameOver, setGameOver] = useState(false)
+
+	const [finalTypForce, setFinalTypForce] = useState(null)
 
 	const fillBox = () => {
 		const randParagText =
 			paragraphTexts[Math.trunc(Math.random() * paragraphTexts.length)].body
 		const ptw = randParagText.match(/[^\s]+\s?/g)
 		setParagTextWords(ptw)
-		totalCharsCount.current += randParagText.length
 		// split a random paragraph text body
 		// set it to paragTextWords
 	}
@@ -40,7 +44,7 @@ function GamePlay() {
 
 	useEffect(() => {
 		const intv = setInterval(() => {
-			if (gameState === 'paused') return
+			if (gameState === "paused") return
 			setTimeElapsed((prev) => {
 				const timeElp = prev + 1
 				const wpm = Math.trunc(
@@ -55,7 +59,7 @@ function GamePlay() {
 		return () => {
 			clearInterval(intv)
 		}
-	}, [gameState])
+	}, [gameState, gameOver])
 
 	const handleWordInputChange = (ev) => {
 		setTypedChars(ev.target.value)
@@ -67,6 +71,7 @@ function GamePlay() {
 			ev.preventDefault()
 			if (typedChars) {
 				// validation
+				allCharsTypedCount.current += paragTextWords[currWordIndex].length
 				if (typedChars === paragTextWords[currWordIndex].trim()) {
 					correctCharsTypedCount.current += paragTextWords[currWordIndex].length
 					setCorrectWordIndexes((prev) => [...prev, currWordIndex])
@@ -91,6 +96,29 @@ function GamePlay() {
 			}
 		}
 	}
+
+	// countdown to start game start
+
+	useEffect(() => {
+		const timeout = setTimeout(() => {
+			if (countdownToStart < 1) return
+			setCountdownToStart((prev) => prev - 1)
+		}, 1000)
+
+		return () => {
+			clearTimeout(timeout)
+		}
+	}, [countdownToStart])
+
+	useEffect(() => {
+		if (countdownToStart === 0) {
+			setGameState("playing")
+		}
+	}, [countdownToStart])
+
+	useEffect(() => {
+		if (gameOver) setGameState("paused")
+	}, [gameOver])
 
 	return (
 		<div className="gameplay-wrapper">
@@ -176,7 +204,11 @@ function GamePlay() {
 								</span>
 							)
 						)}
-						{paragTextWords.length ? <span className="press-space"> [SPACE]</span> : ""}
+						{paragTextWords.length ? (
+							<span className="press-space"> [SPACE]</span>
+						) : (
+							""
+						)}
 					</p>
 				</div>
 				<div className="word-input-wrapper">
@@ -186,12 +218,30 @@ function GamePlay() {
 						onChange={handleWordInputChange}
 						onKeyDown={handleWordInputKeyDown}
 						value={typedChars}
-						disabled={gameState === 'paused'}
+						disabled={gameState === "paused"}
 					/>
 				</div>
+				{countdownToStart > 0 ? (
+					<div className="countdown-to-gamestart">{countdownToStart}</div>
+				) : (
+					""
+				)}
 			</div>
-			<GravitySpace typingSpeed={typingSpeed} timeElapsed={timeElapsed} />
-			{/* <GameOverStatsCard /> */}
+			<GravitySpace
+				typingSpeed={typingSpeed}
+				timeElapsed={timeElapsed}
+				setGameOver={setGameOver}
+				setFinalTypForce={setFinalTypForce}
+			/>
+			{gameOver ? (
+				<GameOverStatsCard
+					typingSpeed={typingSpeed}
+					finalTypForce={finalTypForce}
+					typAccuracy={Math.trunc(
+						(correctCharsTypedCount.current / allCharsTypedCount.current) * 100
+					)}
+				/>
+			) : null}
 		</div>
 	)
 }

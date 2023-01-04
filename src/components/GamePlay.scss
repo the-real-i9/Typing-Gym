@@ -10,6 +10,7 @@
     padding: 15px 25px;
     border-right: 1px solid col_grey('g4');
     @include flex($fd: column);
+    position: relative;
 }
 
 .paragraph-text-wrapper {
@@ -53,4 +54,15 @@
             cursor: not-allowed;
         }
     }
+}
+
+.countdown-to-gamestart {
+    @include pos(35%, 50%);
+    transform: translate(-50%, -35%);
+    @include size(200px);
+    background: radial-gradient(col_green('g2') 40%, col_green('g1') 40%, rgba(#fff, .7) 70%, rgba(#fff, .7) 100%);
+    // backdrop-filter: blur(5px);
+    @include flex(center, center);
+    @include font(64px, 600);
+    padding-top: 5px;
 }

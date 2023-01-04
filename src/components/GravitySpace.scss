@@ -12,6 +12,7 @@
 }
 
 .space {
+    overflow-y: hidden;
     width: 150px;
     flex: 1;
     border-top: 3px solid col_green('g7');
