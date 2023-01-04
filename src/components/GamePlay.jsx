@@ -4,18 +4,19 @@ import GameOverStatsCard from "./GameOverStatsCard"
 import "./GamePlay.scss"
 
 function GamePlay() {
-	/* const currWord = useRef(null)
-	const lastWord = useRef(null) */
 	const [paragTextWords, setParagTextWords] = useState([])
 
 	const [currWordIndex, setCurrWordIndex] = useState(0)
+
 	const [correctWordIndexes, setCorrectWordIndexes] = useState([])
 	const [wrongWordIndexes, setWrongWordIndexes] = useState([])
 
-	const correctWordsTypedCount = useRef(0)
+	const correctCharsTypedCount = useRef(0)
 	const totalCharsCount = useRef(0)
 
 	const [typedChars, setTypedChars] = useState("")
+
+	const timeElapsed = useRef(0)
 
 	const fillBox = () => {
 		const randParagText =
@@ -31,6 +32,16 @@ function GamePlay() {
 		fillBox()
 	}, [])
 
+	useEffect(() => {
+		const intv = setInterval(() => {
+			timeElapsed.current += 500 / 1000
+		}, 500)
+
+		return () => {
+			clearInterval(intv)
+		}
+	}, [])
+
 	const handleWordInputChange = (ev) => {
 		setTypedChars(ev.target.value)
 	}
@@ -42,20 +53,28 @@ function GamePlay() {
 			if (typedChars) {
 				// validation
 				if (typedChars === paragTextWords[currWordIndex].trim()) {
-					correctWordsTypedCount.current += paragTextWords[currWordIndex].length
+					correctCharsTypedCount.current += paragTextWords[currWordIndex].length
 					setCorrectWordIndexes((prev) => [...prev, currWordIndex])
 				} else {
 					setWrongWordIndexes((prev) => [...prev, currWordIndex])
 				}
 
+				const wpm = Math.trunc(
+					((correctCharsTypedCount.current / 5) * 60) / timeElapsed.current
+				)
+				console.log(wpm)
+
 				// reset
 				if (currWordIndex === paragTextWords.length - 1) {
-					// paragraph done
+					// paragraph done, reset, newparagraph
+					setParagTextWords("")
+					setCorrectWordIndexes([])
+					setWrongWordIndexes([])
 					fillBox()
 					setTypedChars("")
 					setCurrWordIndex(0)
 				} else {
-					// word done
+					// word done, nextword
 					setTypedChars("")
 					setCurrWordIndex((prev) => prev + 1)
 				}
@@ -71,39 +90,61 @@ function GamePlay() {
 						{paragTextWords.map((word, index) =>
 							currWordIndex === index ? (
 								<span key={`word-${index}`} id={`word-${index}`}>
-									{word.split("").map((char, chIndex) =>
-										typedChars && typedChars[chIndex] === char && word.startsWith(typedChars) ? (
-											<span
-												className="correct-char"
-												key={`w-${index}-c-${chIndex}`}
-												id={`w-${index}-c-${chIndex}`}
-											>
-												{char}
-											</span>
-										) : typedChars &&
-										  typedChars.length === chIndex + 1 &&
-										  typedChars[chIndex] !== char ? (
-											<span
-												className="wrong-char"
-												key={`w-${index}-c-${chIndex}`}
-												id={`w-${index}-c-${chIndex}`}
-											>
-												{char}
-											</span>
-										) : (
-											<span
-												className={
-													typedChars && !word.startsWith(typedChars)
-														? "wrong-prev-chars"
-														: ""
+									{word.split("").map((char, chIndex) => {
+										if (typedChars) {
+											if (typedChars[chIndex]) {
+												if (typedChars[chIndex] === char && word.slice(0, chIndex) === typedChars.slice(0, chIndex)) {
+													return (
+														<span
+															className="correct-char"
+															key={`w-${index}-c-${chIndex}`}
+															id={`w-${index}-c-${chIndex}`}
+														>
+															{char}
+														</span>
+													)
 												}
-												key={`w-${index}-c-${chIndex}`}
-												id={`w-${index}-c-${chIndex}`}
-											>
-												{char}
-											</span>
-										)
-									)}
+												return (
+													<span
+														className="wrong-char"
+														key={`w-${index}-c-${chIndex}`}
+														id={`w-${index}-c-${chIndex}`}
+													>
+														{char}
+													</span>
+												)
+											} else {
+												if (!word.startsWith(typedChars) && char !== " ") {
+													return (
+														<span
+															className="wrong-char"
+															key={`w-${index}-c-${chIndex}`}
+															id={`w-${index}-c-${chIndex}`}
+														>
+															{char}
+														</span>
+													)
+												}
+												return (
+													<span
+														key={`w-${index}-c-${chIndex}`}
+														id={`w-${index}-c-${chIndex}`}
+													>
+														{char}
+													</span>
+												)
+											}
+										} else {
+											return (
+												<span
+													key={`w-${index}-c-${chIndex}`}
+													id={`w-${index}-c-${chIndex}`}
+												>
+													{char}
+												</span>
+											)
+										}
+									})}
 								</span>
 							) : (
 								<span
