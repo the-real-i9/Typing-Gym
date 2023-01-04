@@ -38,7 +38,7 @@ function GamePlay() {
 	useEffect(() => {
 		const intv = setInterval(() => {
 			setTimeElapsed((prev) => {
-				const timeElp = prev + 500 / 1000
+				const timeElp = prev + 1
 				const wpm = Math.trunc(
 					((correctCharsTypedCount.current / 5) * 60) / timeElp
 				)
@@ -46,7 +46,7 @@ function GamePlay() {
 
 				return timeElp
 			})
-		}, 500)
+		}, 1000)
 
 		return () => {
 			clearInterval(intv)

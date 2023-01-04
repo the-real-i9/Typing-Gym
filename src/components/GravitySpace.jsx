@@ -5,9 +5,6 @@ import './GravitySpace.scss'
 const GravitySpace = ({typingSpeed, timeElapsed}) => {
     const { beatSpeed } = useContext(AppContext)
 
-    // const [typingSpeedPerc, setTypingSpeedPerc] = useState(0)
-    // const [gravForcePerc, setGravForcePerc] = useState(0)
-    
     const [resPerc, setResPerc] = useState(0)
 
     useEffect(() => {
@@ -24,7 +21,7 @@ const GravitySpace = ({typingSpeed, timeElapsed}) => {
 		<div className="gravity-space-wrapper">
 			<div className="tff-value">25N</div>
 			<div className="space">
-				<div className="ball" style={{ top: `calc((0% + ${resPerc}%))` }}>
+				<div className="ball" style={{ top: `calc((0% + ${resPerc}%) - 50px)` }}>
 					<span className="middle">
 						<span className="inner"></span>
 					</span>
