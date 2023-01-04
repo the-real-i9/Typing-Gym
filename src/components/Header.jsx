@@ -71,7 +71,7 @@ function Header() {
 						</span>
 					</nav>
 					<div className="user-profile-wrapper">
-						<button className="profile-circle">
+						<button className="profile-circle" onClick={() => setLocation('home')}>
 							<ProfileIcon />
 						</button>
 					</div>

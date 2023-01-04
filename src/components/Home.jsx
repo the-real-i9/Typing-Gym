@@ -3,7 +3,7 @@ import AppContext from '../lib/AppContext'
 import './Home.scss'
 
 function Home() {
-  const { beatSpeed, setBeatSpeed } = useContext(AppContext)
+  const { beatSpeed, setBeatSpeed, setLocation } = useContext(AppContext)
 
   return (
     <div className='home-wrapper'>
@@ -16,7 +16,7 @@ function Home() {
               <div>What typing speed<em>(wpm)</em> would you like to beat?</div>
               <input type="number" className='beat-speed-input' value={beatSpeed} onChange={(ev) => setBeatSpeed(ev.target.value)} />
             </div>
-            <button className="start-game">Start Game</button>
+            <button onClick={() => setLocation('gameplay')} className="start-game">Start Game</button>
           </div>
         </div>
         <div className="right-wrapper">

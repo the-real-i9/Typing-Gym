@@ -7,7 +7,7 @@ import Home from "./components/Home"
 import AppContext from "./lib/AppContext"
 
 function App() {
-	const [location, setLocation] = useState("gameplay")
+	const [location, setLocation] = useState("home")
 	const [beatSpeed, setBeatSpeed] = useState(10)
 	const [gameState, setGameState] = useState("paused")
 	
