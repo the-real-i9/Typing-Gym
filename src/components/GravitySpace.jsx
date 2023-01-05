@@ -12,11 +12,11 @@ const GravitySpace = ({
 	const [{typForce, grvForce}, setForces] = useState({typForce: 0, grvForce: 0})
 
 	useEffect(() => {
-		const gravityForcePerc = Math.pow(timeElapsed / 4, 2)
+		const gravityForcePerc = Math.round(Math.pow(timeElapsed / 5, 2)) + Math.round(typingSpeed / 10)
 
 		setForces({
 			typForce: typingSpeed,
-			grvForce: Math.round(gravityForcePerc),
+			grvForce: gravityForcePerc,
 		})
 
 		const rp = 50 + (-typingSpeed + gravityForcePerc)

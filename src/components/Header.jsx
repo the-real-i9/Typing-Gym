@@ -11,6 +11,20 @@ function Header() {
 
 	const timeElapsed = useRef(0)
 
+	const gameStopped = () => {
+		timeElapsed.current = 0
+		setGameState('paused')
+		setCurrTime({ currMin: 0, currSec: 0 })
+		setLocation('home')
+	}
+
+	useEffect(() => {
+		if (location === 'stats') {
+			timeElapsed.current = 0
+			setCurrTime({ currMin: 0, currSec: 0 })
+		}
+	}, [location])
+
 	useEffect(() => {
 		const intv = setInterval(() => {
 			if (gameState === 'paused') return
@@ -45,7 +59,7 @@ function Header() {
 						<button className="play-pause" onClick={() => setGameState(gameState === 'playing' ? "paused" : "playing")}>
 							{gameState === 'playing' ? <PauseIcon /> : <PlayIcon />}
 						</button>
-						<button className="stop" onClick={() => setLocation('home')}>
+						<button className="stop" onClick={gameStopped}>
 							<StopIcon />
 						</button>
 					</div>
