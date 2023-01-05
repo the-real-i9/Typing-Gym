@@ -23,7 +23,7 @@
 }
 
 .ball {
-    @include pos(calc(100% - 50px));
+    position: absolute;
     @include size(50px);
     background: col_green('g7');
     @include flex(center, center);

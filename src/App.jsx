@@ -7,13 +7,12 @@ import Home from "./components/Home"
 import AppContext from "./lib/AppContext"
 
 function App() {
-	const [location, setLocation] = useState("home")
-	const [beatSpeed, setBeatSpeed] = useState(10)
+	const [location, setLocation] = useState("gameplay")
 	const [gameState, setGameState] = useState("paused")
 	
 	return (
 		<AppContext.Provider
-			value={{location, setLocation, beatSpeed, setBeatSpeed, gameState, setGameState}}
+			value={{location, setLocation, gameState, setGameState}}
 		>
 			<div className="app-wrapper">
 				<Header />

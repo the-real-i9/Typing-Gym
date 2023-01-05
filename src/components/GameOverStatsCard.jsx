@@ -2,7 +2,7 @@ import {useContext} from "react"
 import AppContext from "../lib/AppContext"
 import "./GameOverStatsCard.scss"
 
-function GameOverStatsCard({typingSpeed, finalTypForce, typAccuracy}) {
+function GameOverStatsCard({typingSpeed, finalGrvForce, typAccuracy}) {
 	const {setLocation} = useContext(AppContext)
 	return (
 		<div className="gmosc-wrapper">
@@ -20,9 +20,9 @@ function GameOverStatsCard({typingSpeed, finalTypForce, typAccuracy}) {
 						</div>
 						<span></span>
 						<div className="grav-force">
-							<div className="label">T-Force</div>
+							<div className="label">G-Force</div>
 							<div className="value">
-								{finalTypForce}
+								{finalGrvForce}
 								<small>(new.)</small>
 							</div>
 						</div>

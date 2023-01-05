@@ -27,7 +27,7 @@ function GamePlay() {
 
 	const [gameOver, setGameOver] = useState(false)
 
-	const [finalTypForce, setFinalTypForce] = useState(null)
+	const [finalGrvForce, setFinalGrvForce] = useState(null)
 
 	const fillBox = () => {
 		const randParagText =
@@ -231,12 +231,12 @@ function GamePlay() {
 				typingSpeed={typingSpeed}
 				timeElapsed={timeElapsed}
 				setGameOver={setGameOver}
-				setFinalTypForce={setFinalTypForce}
+				setFinalGrvForce={setFinalGrvForce}
 			/>
 			{gameOver ? (
 				<GameOverStatsCard
 					typingSpeed={typingSpeed}
-					finalTypForce={finalTypForce}
+					finalGrvForce={finalGrvForce}
 					typAccuracy={Math.trunc(
 						(correctCharsTypedCount.current / allCharsTypedCount.current) * 100
 					)}

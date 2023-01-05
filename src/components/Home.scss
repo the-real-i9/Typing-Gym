@@ -25,27 +25,6 @@
     @include flex(space-between, center);
 }
 
-.set-beat-speed {
-    div:first-child {
-        @include font(10px, 700);
-        text-transform: uppercase;
-    }
-    div:nth-child(2) {
-        @include font(16px, 400);
-        margin: 4px 0 0;
-    }
-    input {
-        @include size(70px, 35px);
-        margin-top: 4px;
-        border-radius: 9px;
-        padding-left: 10px;
-        border: 3px solid col_grey('g3');
-        @include font(14px, 600);
-
-        
-    }
-}
-
 button.start-game {
     border-radius: 9px;
     background: #000;

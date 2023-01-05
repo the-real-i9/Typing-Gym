@@ -45,7 +45,7 @@ function Header() {
 						<button className="play-pause" onClick={() => setGameState(gameState === 'playing' ? "paused" : "playing")}>
 							{gameState === 'playing' ? <PauseIcon /> : <PlayIcon />}
 						</button>
-						<button className="stop">
+						<button className="stop" onClick={() => setLocation('home')}>
 							<StopIcon />
 						</button>
 					</div>
@@ -62,16 +62,16 @@ function Header() {
 							<span className="text">Home</span>
 						</span>
 						<span
-							onClick={() => setLocation("analytics")}
-							className={`nav-item ${location === "analytics" ? "active" : ""}`}
-							id="nav-item-analytics"
+							onClick={() => setLocation("stats")}
+							className={`nav-item ${location === "stats" ? "active" : ""}`}
+							id="nav-item-stats"
 						>
 							<ActivityIcon />
-							<span className="text">Analytics</span>
+							<span className="text">Stats</span>
 						</span>
 					</nav>
 					<div className="user-profile-wrapper">
-						<button className="profile-circle" onClick={() => setLocation('home')}>
+						<button className="profile-circle">
 							<ProfileIcon />
 						</button>
 					</div>
