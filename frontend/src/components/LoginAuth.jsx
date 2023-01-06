@@ -21,11 +21,13 @@ const LoginAuth = () => {
                 password: passwordValue,
             })
             const { user, jwt } = res.data
+            console.log(user)
             storeToken(jwt)
             setLoading(false)
-            window.location.reload()
+            // window.location.reload()
         } catch (e) {
-            consolg.log(e.response)
+            console.log(e.response)
+        } finally {
             setLoading(false)
         }
     }
@@ -55,7 +57,6 @@ const LoginAuth = () => {
 						onChange={(ev) => setPasswordValue(ev.target.value)}
 						required
 					/>
-                    <div className="error">{passwordError || ""}</div>
 				</div>
 				<button type="submit" onClick={handleUserLogin}>
 					Login

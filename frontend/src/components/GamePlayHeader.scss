@@ -1,0 +1,39 @@
+@import "../lib/style-deps";
+
+.header-wrapper {
+    @include size(100%, 50px);
+    border-bottom: 1px solid col_grey("g4");
+    @include flex;
+    padding: 0 25px;
+}
+
+.logo-wrapper {
+    flex: 1;
+    @include flex($ai: center);
+}
+
+.logo {
+    @include font(16px, 900);
+}
+
+.game-rel {
+    @include flex($ai: center);
+}
+
+.clock {
+    width: 200px;
+    @include font(16px, 600);
+}
+
+.time-count {
+    margin-left: 5px;
+}
+
+.game-controls {
+    @include flex($ai: center);
+}
+
+.play-pause, .stop {
+    @include size(40px);
+    @include flex(center, center);
+}

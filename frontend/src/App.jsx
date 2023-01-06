@@ -21,10 +21,10 @@ function App() {
 		try {
 			const res = await axios.get(`${import.meta.env.VITE_STRAPI_HOST}/api/users/me`,{
 				headers: {
-					Authorization: `Bearer: ${token}`
+					Authorization: `Bearer ${token}`
 				}
 			})
-			console.log(res)
+			setUserData(res.data)
 
 
 		} catch(e) {
@@ -34,7 +34,7 @@ function App() {
 
 	useEffect(() => {
 		if (token) {
-			fetchLoggedInUser()
+			fetchLoggedInUser(token)
 		}
 	}, [token])
 	
@@ -43,7 +43,7 @@ function App() {
 			value={{location, setLocation, gameState, setGameState, userData, setUserData}}
 		>
 			<div className="app-wrapper">
-				<Header />
+			{location !== 'gameplay' ? <Header /> : null}
 				{location === "home" ? (
 					<Home />
 				) : location === "gameplay" ? (

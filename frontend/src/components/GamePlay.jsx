@@ -1,8 +1,9 @@
-import {useContext, useEffect, useRef, useState} from "react"
+import {Fragment, useContext, useEffect, useRef, useState} from "react"
 import AppContext from "../lib/AppContext"
 import paragraphTexts from "../lib/paragraph-texts"
 import GameOverStatsCard from "./GameOverStatsCard"
 import "./GamePlay.scss"
+import GamePlayHeader from "./GamePlayHeader"
 import GravitySpace from "./GravitySpace"
 
 function GamePlay() {
@@ -117,46 +118,40 @@ function GamePlay() {
 	}, [countdownToStart])
 
 	useEffect(() => {
-		if (gameOver) setGameState("paused")
+		if (gameOver) {
+			setGameState("paused")
+			setTimeElapsed(0)
+		}
 	}, [gameOver])
 
 	return (
-		<div className="gameplay-wrapper">
-			<div className="paragraph-text_input-wrapper">
-				<div className="paragraph-text-wrapper">
-					<p>
-						{paragTextWords.map((word, index) =>
-							currWordIndex === index ? (
-								<span key={`word-${index}`} id={`word-${index}`}>
-									{word.split("").map((char, chIndex) => {
-										if (typedChars) {
-											if (typedChars[chIndex]) {
-												if (
-													typedChars[chIndex] === char &&
-													word.slice(0, chIndex) ===
-														typedChars.slice(0, chIndex)
-												) {
-													return (
-														<span
-															className="correct-char"
-															key={`w-${index}-c-${chIndex}`}
-															id={`w-${index}-c-${chIndex}`}
-														>
-															{char}
-														</span>
-													)
-												}
-												return (
-													<span
-														className="wrong-char"
-														key={`w-${index}-c-${chIndex}`}
-														id={`w-${index}-c-${chIndex}`}
-													>
-														{char}
-													</span>
-												)
-											} else {
-												if (!word.startsWith(typedChars) && char !== " ") {
+		<Fragment>
+			<GamePlayHeader timeElapsed={timeElapsed} setTimeElapsed={setTimeElapsed} />
+			<div className="gameplay-wrapper">
+				<div className="paragraph-text_input-wrapper">
+					<div className="paragraph-text-wrapper">
+						<p>
+							{paragTextWords.map((word, index) =>
+								currWordIndex === index ? (
+									<span key={`word-${index}`} id={`word-${index}`}>
+										{word.split("").map((char, chIndex) => {
+											if (typedChars) {
+												if (typedChars[chIndex]) {
+													if (
+														typedChars[chIndex] === char &&
+														word.slice(0, chIndex) ===
+															typedChars.slice(0, chIndex)
+													) {
+														return (
+															<span
+																className="correct-char"
+																key={`w-${index}-c-${chIndex}`}
+																id={`w-${index}-c-${chIndex}`}
+															>
+																{char}
+															</span>
+														)
+													}
 													return (
 														<span
 															className="wrong-char"
@@ -166,7 +161,28 @@ function GamePlay() {
 															{char}
 														</span>
 													)
+												} else {
+													if (!word.startsWith(typedChars) && char !== " ") {
+														return (
+															<span
+																className="wrong-char"
+																key={`w-${index}-c-${chIndex}`}
+																id={`w-${index}-c-${chIndex}`}
+															>
+																{char}
+															</span>
+														)
+													}
+													return (
+														<span
+															key={`w-${index}-c-${chIndex}`}
+															id={`w-${index}-c-${chIndex}`}
+														>
+															{char}
+														</span>
+													)
 												}
+											} else {
 												return (
 													<span
 														key={`w-${index}-c-${chIndex}`}
@@ -176,73 +192,65 @@ function GamePlay() {
 													</span>
 												)
 											}
-										} else {
-											return (
-												<span
-													key={`w-${index}-c-${chIndex}`}
-													id={`w-${index}-c-${chIndex}`}
-												>
-													{char}
-												</span>
-											)
+										})}
+									</span>
+								) : (
+									<span
+										className={
+											correctWordIndexes.includes(index)
+												? "correct"
+												: wrongWordIndexes.includes(index)
+												? "wrong"
+												: ""
 										}
-									})}
-								</span>
+										key={`word-${index}`}
+										id={`word-${index}`}
+									>
+										{word}
+									</span>
+								)
+							)}
+							{paragTextWords.length ? (
+								<span className="press-space"> [SPACE]</span>
 							) : (
-								<span
-									className={
-										correctWordIndexes.includes(index)
-											? "correct"
-											: wrongWordIndexes.includes(index)
-											? "wrong"
-											: ""
-									}
-									key={`word-${index}`}
-									id={`word-${index}`}
-								>
-									{word}
-								</span>
-							)
-						)}
-						{paragTextWords.length ? (
-							<span className="press-space"> [SPACE]</span>
-						) : (
-							""
-						)}
-					</p>
-				</div>
-				<div className="word-input-wrapper">
-					<input
-						placeholder="Type here..."
-						type="text"
-						onChange={handleWordInputChange}
-						onKeyDown={handleWordInputKeyDown}
-						value={typedChars}
-						disabled={gameState === "paused"}
-					/>
-				</div>
-				{countdownToStart > 0 ? (
-					<div className="countdown-to-gamestart">{countdownToStart}</div>
-				) : (
-					""
-				)}
-			</div>
-			<GravitySpace
-				typingSpeed={typingSpeed}
-				timeElapsed={timeElapsed}
-				setGameOver={setGameOver}
-				setFinalGrvForce={setFinalGrvForce}
-			/>
-			{gameOver ? (
-				<GameOverStatsCard
-					typingSpeed={typingSpeed}
-					finalGrvForce={finalGrvForce}
-					typAccuracy={Math.trunc(
-						(correctCharsTypedCount.current / allCharsTypedCount.current) * 100
+								""
+							)}
+						</p>
+					</div>
+					<div className="word-input-wrapper">
+						<input
+							placeholder="Type here..."
+							type="text"
+							onChange={handleWordInputChange}
+							onKeyDown={handleWordInputKeyDown}
+							value={typedChars}
+							disabled={gameState === "paused"}
+						/>
+					</div>
+					{countdownToStart > 0 ? (
+						<div className="countdown-to-gamestart">{countdownToStart}</div>
+					) : (
+						""
 					)}
+				</div>
+				<GravitySpace
+					typingSpeed={typingSpeed}
+					timeElapsed={timeElapsed}
+					setGameOver={setGameOver}
+					setFinalGrvForce={setFinalGrvForce}
 				/>
-			) : null}
-		</div>
+				{gameOver ? (
+					<GameOverStatsCard
+						typingSpeed={typingSpeed}
+						finalGrvForce={finalGrvForce}
+						typAccuracy={Math.trunc(
+							(correctCharsTypedCount.current / allCharsTypedCount.current) *
+								100
+						)}
+					/>
+				) : null}
+			</div>
+		</Fragment>
 	)
 }
 
