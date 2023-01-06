@@ -59,6 +59,7 @@ const SignUpAuth = () => {
 
 	return (
 		<div className="form-wrapper">
+        <div className="form-title">Sign Up</div>
 			<form action="">
 				<div className="input-wrapper">
 					<label htmlFor="username">Username</label>

@@ -1,16 +1,16 @@
 import {Fragment, useContext, useEffect, useRef, useState} from "react"
 import AppContext from "../lib/AppContext"
 import {
+	ActivityCheckIcon,
 	ActivityIcon,
+	HomeCheckIcon,
 	HomeIcon,
 	ProfileIcon,
 } from "../lib/Icons"
 import "./Header.scss"
 
-function Header() {
-	const {location, setLocation} =
-		useContext(AppContext)
-	
+function Header({setShowAuthModal}) {
+	const {location, setLocation} = useContext(AppContext)
 
 	return (
 		<div className="header-wrapper">
@@ -23,7 +23,7 @@ function Header() {
 					className={`nav-item ${location === "home" ? "active" : ""}`}
 					id="nav-item-home"
 				>
-					<HomeIcon />
+					{location === "home" ? <HomeCheckIcon /> : <HomeIcon />}
 					<span className="text">Home</span>
 				</span>
 				<span
@@ -31,12 +31,15 @@ function Header() {
 					className={`nav-item ${location === "stats" ? "active" : ""}`}
 					id="nav-item-stats"
 				>
-					<ActivityIcon />
+					{location === "stats" ? <ActivityCheckIcon /> : <ActivityIcon />}
 					<span className="text">Stats</span>
 				</span>
 			</nav>
 			<div className="user-profile-wrapper">
-				<button className="profile-circle">
+				<button
+					onClick={() => setShowAuthModal(true)}
+					className="profile-circle"
+				>
 					<ProfileIcon />
 				</button>
 			</div>

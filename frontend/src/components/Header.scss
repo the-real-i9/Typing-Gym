@@ -44,5 +44,8 @@
 .profile-circle {
     @include size(40px);
     @include flex(center, center);
-    background: col_grey('g2');
+
+    &:hover {
+        background: col_grey('g2');
+    }
 }

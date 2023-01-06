@@ -1,5 +1,4 @@
-import {Fragment, useContext, useEffect, useRef, useState} from "react"
-import AppContext from "../lib/AppContext"
+import {Fragment, useEffect, useRef, useState} from "react"
 import paragraphTexts from "../lib/paragraph-texts"
 import GameOverStatsCard from "./GameOverStatsCard"
 import "./GamePlay.scss"
@@ -7,7 +6,7 @@ import GamePlayHeader from "./GamePlayHeader"
 import GravitySpace from "./GravitySpace"
 
 function GamePlay() {
-	const {gameState, setGameState} = useContext(AppContext)
+	const [gameState, setGameState] = useState("paused")
 
 	const [paragTextWords, setParagTextWords] = useState([])
 
@@ -126,7 +125,12 @@ function GamePlay() {
 
 	return (
 		<Fragment>
-			<GamePlayHeader timeElapsed={timeElapsed} setTimeElapsed={setTimeElapsed} />
+			<GamePlayHeader
+				timeElapsed={timeElapsed}
+				setTimeElapsed={setTimeElapsed}
+				gameState={gameState}
+				setGameState={setGameState}
+			/>
 			<div className="gameplay-wrapper">
 				<div className="paragraph-text_input-wrapper">
 					<div className="paragraph-text-wrapper">

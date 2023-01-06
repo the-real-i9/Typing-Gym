@@ -1,11 +1,12 @@
-import {useContext} from "react"
-import AppContext from "../lib/AppContext"
 import {PauseIcon, PlayIcon, StopIcon} from "../lib/Icons"
 import "./GameOverStatsCard.scss"
 
-const GamePlayHeader = ({timeElapsed, setTimeElapsed}) => {
-	const {gameState, setGameState} = useContext(AppContext)
-
+const GamePlayHeader = ({
+	timeElapsed,
+	setTimeElapsed,
+	gameState,
+	setGameState,
+}) => {
 	const formatTimeNum = (timeNum) =>
 		new Intl.NumberFormat("en-US", {minimumIntegerDigits: 2}).format(timeNum)
 

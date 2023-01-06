@@ -4,6 +4,8 @@ import LoginAuth from "./LoginAuth"
 import SignUpAuth from "./SignUpAuth"
 import {useContext} from "react"
 import AppContext from "../lib/AppContext"
+import { deleteToken } from "../lib/helpers"
+import { CloseIcon } from "../lib/Icons"
 
 const UserAuthModal = () => {
 	const {userData} = useContext(AppContext)
@@ -13,6 +15,13 @@ const UserAuthModal = () => {
 	const handleAuthTypeSwitch = (ev) => {
 		ev.preventDefault()
 		setAuthType((prev) => (prev === "login" ? "signup" : "login"))
+	}
+
+	const handleUserLogout = (ev) => {
+		ev.preventDefault()
+
+		deleteToken()
+		window.location.reload()
 	}
 
 	return (
@@ -32,13 +41,18 @@ const UserAuthModal = () => {
 					</Fragment>
 				) : (
 					<div className="logged-in-user">
-						<div className="username"></div>
-						<div className="user-email"></div>
-						<form action="">
+						<div className="username">{userData.username}</div>
+						<div className="user-email">{userData.email}</div>
+						<form action="#" onSubmit={handleUserLogout}>
 							<button type="submit">Log Out</button>
 						</form>
 					</div>
 				)}
+			</div>
+			<div className="close-button-wrapper">
+				<div className="close-button">
+					<CloseIcon />
+				</div>
 			</div>
 		</div>
 	)

@@ -11,8 +11,7 @@ import { getToken } from "./lib/helpers"
 
 function App() {
 	const [location, setLocation] = useState("home")
-	const [gameState, setGameState] = useState("paused")
-	const [showAuthModal, setShowAuthModal] = useState(true)
+	const [showAuthModal, setShowAuthModal] = useState(false)
 	const [userData, setUserData] = useState(null)
 
 	const token = getToken()
@@ -40,10 +39,10 @@ function App() {
 	
 	return (
 		<AppContext.Provider
-			value={{location, setLocation, gameState, setGameState, userData, setUserData}}
+			value={{location, setLocation, userData, setUserData}}
 		>
 			<div className="app-wrapper">
-			{location !== 'gameplay' ? <Header /> : null}
+			{location !== 'gameplay' ? <Header setShowAuthModal={setShowAuthModal} /> : null}
 				{location === "home" ? (
 					<Home />
 				) : location === "gameplay" ? (

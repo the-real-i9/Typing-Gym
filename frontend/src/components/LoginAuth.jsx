@@ -24,7 +24,7 @@ const LoginAuth = () => {
             console.log(user)
             storeToken(jwt)
             setLoading(false)
-            // window.location.reload()
+            window.location.reload()
         } catch (e) {
             console.log(e.response)
         } finally {
@@ -34,6 +34,7 @@ const LoginAuth = () => {
 
 	return (
 		<div className="form-wrapper">
+        <div className="form-title">Login</div>
 			<form action="">
             <div className="error">{errorMessage || ""}</div>
 				<div className="input-wrapper">
