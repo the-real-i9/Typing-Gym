@@ -1,19 +1,46 @@
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import "./App.scss"
 import Stats from "./components/Stats"
 import GamePlay from "./components/GamePlay"
 import Header from "./components/Header"
 import Home from "./components/Home"
 import AppContext from "./lib/AppContext"
+import UserAuthModal from "./components/UserAuthModal"
+import axios from "axios"
+import { getToken } from "./lib/helpers"
 
 function App() {
-	const [location, setLocation] = useState("gameplay")
+	const [location, setLocation] = useState("home")
 	const [gameState, setGameState] = useState("paused")
-	const [showLogin, setShowLogin] = useState(false)
+	const [showAuthModal, setShowAuthModal] = useState(true)
+	const [userData, setUserData] = useState(null)
+
+	const token = getToken()
+
+	const fetchLoggedInUser = async (token) => {
+		try {
+			const res = await axios.get(`${import.meta.env.VITE_STRAPI_HOST}/api/users/me`,{
+				headers: {
+					Authorization: `Bearer: ${token}`
+				}
+			})
+			console.log(res)
+
+
+		} catch(e) {
+			console.log(e)
+		}
+	}
+
+	useEffect(() => {
+		if (token) {
+			fetchLoggedInUser()
+		}
+	}, [token])
 	
 	return (
 		<AppContext.Provider
-			value={{location, setLocation, gameState, setGameState}}
+			value={{location, setLocation, gameState, setGameState, userData, setUserData}}
 		>
 			<div className="app-wrapper">
 				<Header />
@@ -24,7 +51,7 @@ function App() {
 				) : location === "stats" ? (
 					<Stats />
 				) : null}
-				
+				{showAuthModal ? <UserAuthModal /> : null}
 			</div>
 		</AppContext.Provider>
 	)

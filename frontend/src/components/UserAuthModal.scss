@@ -1,0 +1,31 @@
+@import '../lib/style-deps';
+
+.user-auth-modal-wrapper {
+    @include pos(0, 0, 0, 0);
+    background: rgba(col_grey('g1'), .5);
+    backdrop-filter: blur(8px);
+    @include flex(center, center);
+}
+
+.user-auth-modal {
+    @include flex(center, center, column);
+    padding: 10px 20px;
+    border-radius: 9px;
+}
+
+form {
+    width: 100%;
+}
+
+.input-wrapper {
+    @include flex($fd: column)
+}
+
+
+label {
+    @include font(14px)
+}
+
+input {
+
+}

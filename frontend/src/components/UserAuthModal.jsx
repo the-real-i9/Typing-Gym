@@ -1,8 +1,19 @@
-import {useState} from "react"
+import {Fragment, useState} from "react"
 import "./UserAuthModal.scss"
+import LoginAuth from "./LoginAuth"
+import SignUpAuth from "./SignUpAuth"
+import {useContext} from "react"
+import AppContext from "../lib/AppContext"
 
 const UserAuthModal = () => {
-	const [authType, setAuthType] = useState("login")
+	const {userData} = useContext(AppContext)
+
+	const [authType, setAuthType] = useState("signup")
+
+	const handleAuthTypeSwitch = (ev) => {
+		ev.preventDefault()
+		setAuthType((prev) => (prev === "login" ? "signup" : "login"))
+	}
 
 	return (
 		<div className="user-auth-modal-wrapper">
@@ -10,37 +21,24 @@ const UserAuthModal = () => {
 				<div className="logo-wrapper">
 					<div className="logo">LOGO</div>
 				</div>
-				<div className="form-wrapper">
-					<form action="">
-						<div className="input-wrapper">
-							<label htmlFor="username">Username</label>
-							<input type="text" name="username" id="username" required />
-						</div>
-						{authType === "signup" ? (
-							<div className="input-wrapper">
-								<label htmlFor="email">Email</label>
-								<input type="email" name="email" id="email" required />
-							</div>
-						) : null}
-						<div className="input-wrapper">
-							<label htmlFor="password">Password</label>
-							<input type="password" name="password" id="password" required />
-						</div>
-                        {authType === "signup" ? (
-						<div className="input-wrapper">
-							<label htmlFor="conf-password">Confirm Password</label>
-							<input
-								type="password"
-								name="conf-password"
-								id="conf-password"
-								required
-							/>
-						</div>
-                        ) : null}
-						<button type="submit">{authType === "signup" ? "Sign Up" : "Login"}</button>
-					</form>
-				</div>
-				<a className="alt-auth">{authType === "signup" ? "Have an Account? Login" : "Don't have an account? Sign Up"}</a>
+				{!userData ? (
+					<Fragment>
+						{authType === "login" ? <LoginAuth /> : <SignUpAuth />}
+						<a onClick={handleAuthTypeSwitch} className="alt-auth">
+							{authType === "signup"
+								? "Have an account? Login"
+								: "Don't have an account? Sign Up"}
+						</a>
+					</Fragment>
+				) : (
+					<div className="logged-in-user">
+						<div className="username"></div>
+						<div className="user-email"></div>
+						<form action="">
+							<button type="submit">Log Out</button>
+						</form>
+					</div>
+				)}
 			</div>
 		</div>
 	)
