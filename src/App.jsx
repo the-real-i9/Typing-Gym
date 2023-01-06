@@ -9,6 +9,7 @@ import AppContext from "./lib/AppContext"
 function App() {
 	const [location, setLocation] = useState("gameplay")
 	const [gameState, setGameState] = useState("paused")
+	const [showLogin, setShowLogin] = useState(false)
 	
 	return (
 		<AppContext.Provider
@@ -23,6 +24,7 @@ function App() {
 				) : location === "stats" ? (
 					<Stats />
 				) : null}
+				
 			</div>
 		</AppContext.Provider>
 	)
