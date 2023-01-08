@@ -1,3 +1,8 @@
+# Feature Updates
+- Allow Users choose to practice with difficult words, aside from random texts
+- Allow Users retype word they spelt wrongly
+- Include the 3000 communication words.
+
 # Definition
 - A ball begins to drop as you begin to type, once the ball touches the ground, it's game over.
 - Your typing speed + accuracy is the force against gravity that pushes it upwards as it overcomes gravity, or remain on a spot if it equals gravity.
