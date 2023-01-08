@@ -1,11 +1,14 @@
+import { useEffect, useState } from "react"
 import {PauseIcon, PlayIcon, StopIcon} from "../lib/Icons"
 import "./GameOverStatsCard.scss"
+import "./GamePlayHeader.scss"
 
 const GamePlayHeader = ({
 	timeElapsed,
 	setTimeElapsed,
 	gameState,
 	setGameState,
+	gameOver
 }) => {
 	const formatTimeNum = (timeNum) =>
 		new Intl.NumberFormat("en-US", {minimumIntegerDigits: 2}).format(timeNum)
@@ -20,7 +23,7 @@ const GamePlayHeader = ({
 	}
 
 	useEffect(() => {
-		setCurrTime({currMin: 0, currSec: 0})
+		if (gameOver) setCurrTime({currMin: 0, currSec: 0})
 	}, [gameOver])
 
 	useEffect(() => {

@@ -12,14 +12,23 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "typing_speed": {
+    "avg_typing_speed": {
       "type": "integer",
       "required": true
     },
-    "users_permissions_user": {
+    "ownUser": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
+    },
+    "date": {
+      "type": "date",
+      "required": true,
+      "unique": true
+    },
+    "play_count": {
+      "type": "integer",
+      "required": true
     }
   }
 }

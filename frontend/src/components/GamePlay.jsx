@@ -130,6 +130,7 @@ function GamePlay() {
 				setTimeElapsed={setTimeElapsed}
 				gameState={gameState}
 				setGameState={setGameState}
+				gameOver={gameOver}
 			/>
 			<div className="gameplay-wrapper">
 				<div className="paragraph-text_input-wrapper">
