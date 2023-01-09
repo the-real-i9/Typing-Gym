@@ -20,7 +20,7 @@ export const fetchLoggedInUser = async (token, setUserData) => {
 				},
 			}
 		)
-        
+
 		setUserData(res.data)
 	} catch (e) {
 		console.log(e)
@@ -94,9 +94,7 @@ export const updateUserStats = async ({token, userData, todayStatId}) => {
 		const res = await axios.put(
 			`${host}/api/users/${userData.id}`,
 			{
-				data: {
 					stats: [...userData.stats.map((stat) => stat.id), todayStatId],
-				},
 			},
 			{
 				headers: {
@@ -104,13 +102,13 @@ export const updateUserStats = async ({token, userData, todayStatId}) => {
 				},
 			}
 		)
-            console.log(res)
 	} catch (e) {
 		console.log(e)
 	}
 }
 
 export const updateTodayStat = async ({token, todayStat}) => {
+    // console.log(todayStat)
 	try {
 		const {id, avg_typing_speed, play_count} = todayStat
 		await axios.put(
@@ -128,7 +126,6 @@ export const updateTodayStat = async ({token, todayStat}) => {
 			}
 		)
 
-		// console.log(res.data)
 	} catch (e) {
 		console.log(e)
 	}

@@ -1,14 +1,14 @@
 import {Fragment, useContext, useEffect, useRef, useState} from "react"
 import AppContext from "../lib/AppContext"
-import { createTodayStat, fetchTodayStat } from "../lib/CRUDs"
-import { getToken } from "../lib/helpers"
+import {createTodayStat, fetchTodayStat} from "../lib/CRUDs"
+import {getToken} from "../lib/helpers"
 import paragraphTexts from "../lib/paragraph-texts"
 import GameOverStatsCard from "./GameOverStatsCard"
 import "./GamePlay.scss"
 import GamePlayHeader from "./GamePlayHeader"
 import GravitySpace from "./GravitySpace"
 
-function GamePlay({setTodayStat}) {
+function GamePlay({todayStat, setTodayStat}) {
 	const {userData} = useContext(AppContext)
 
 	const [gameState, setGameState] = useState("paused")
@@ -121,27 +121,30 @@ function GamePlay({setTodayStat}) {
 	}, [countdownToStart])
 
 	const newAverageSpeed = (avg_typing_speed, play_count) =>
-		(avg_typing_speed * play_count + typingSpeed) / play_count + 1
+		((avg_typing_speed * play_count) + typingSpeed) / (play_count + 1)
 
 	const handleGameOver = () => {
 		setGameState("paused")
 		setTimeElapsed(0)
 		if (typingSpeed < 10) return
-		setTodayStat((prev) => {
-			if (prev?.ts) {
+		if (todayStat.ts) {
+			setTodayStat((prev) => {
 				const avg_typing_speed = newAverageSpeed(
 					prev.ts.avg_typing_speed,
 					prev.ts.play_count
 				)
 				const play_count = prev.ts.play_count + 1
-				return {ts: {avg_typing_speed, play_count}, updateFlag: true}
-			}
-			// create today stat
+
+
+				return {ts: {...prev.ts, avg_typing_speed, play_count}, updateFlag: true}
+			})
+		} else {
 			const token = getToken()
-			createTodayStat({ token, userId: userData.id, typingSpeed })
-			fetchTodayStat({token, userId: userData.id, setTodayStat})
+			// create today stat
+			createTodayStat({token, userId: userData.id, typingSpeed})
 			// fetch today stat
-		})
+			fetchTodayStat({token, userId: userData.id, setTodayStat})
+		}
 	}
 
 	useEffect(() => {

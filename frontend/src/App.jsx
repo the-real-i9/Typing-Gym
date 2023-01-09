@@ -48,7 +48,7 @@ function App() {
 				{location === "home" ? (
 					<Home />
 				) : location === "gameplay" ? (
-					<GamePlay setTodayStat={setTodayStat} />
+					<GamePlay todayStat={todayStat} setTodayStat={setTodayStat} />
 				) : location === "stats" ? (
 					<Stats />
 				) : null}
