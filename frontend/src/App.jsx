@@ -40,7 +40,7 @@ function App() {
 
 
 	return (
-		<AppContext.Provider value={{location, setLocation, userData }}>
+		<AppContext.Provider value={{location, setLocation, userData, setUserData }}>
 			<div className="app-wrapper">
 				{location !== "gameplay" ? (
 					<Header setShowAuthModal={setShowAuthModal} />
@@ -53,7 +53,7 @@ function App() {
 					<Stats />
 				) : null}
 				{showAuthModal ? (
-					<UserAuthModal setUserData={setUserData} setShowAuthModal={setShowAuthModal} />
+					<UserAuthModal setShowAuthModal={setShowAuthModal} />
 				) : null}
 			</div>
 		</AppContext.Provider>

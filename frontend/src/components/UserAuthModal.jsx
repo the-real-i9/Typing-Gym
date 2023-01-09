@@ -9,8 +9,8 @@ import {CloseIcon} from "../lib/Icons"
 import {fetchLoggedInUser, uploadProfilePicture} from "../lib/CRUDs"
 import {host} from "../lib/helpers"
 
-const UserAuthModal = ({setShowAuthModal, setUserData}) => {
-	const {userData} = useContext(AppContext)
+const UserAuthModal = ({setShowAuthModal}) => {
+	const {userData, setUserData} = useContext(AppContext)
 
 	const [authType, setAuthType] = useState("signup")
 
