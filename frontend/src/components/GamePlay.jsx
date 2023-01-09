@@ -126,7 +126,7 @@ function GamePlay({todayStat, setTodayStat}) {
 	const handleGameOver = () => {
 		setGameState("paused")
 		setTimeElapsed(0)
-		if (typingSpeed < 10) return
+		if (typingSpeed < 10 || !userData) return
 		if (todayStat.ts) {
 			setTodayStat((prev) => {
 				const avg_typing_speed = newAverageSpeed(

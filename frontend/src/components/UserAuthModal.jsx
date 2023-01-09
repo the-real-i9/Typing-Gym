@@ -32,8 +32,8 @@ const UserAuthModal = ({setShowAuthModal, setUserData}) => {
 		formData.append("refId", userData.id)
 
 		const token = getToken()
-		uploadProfilePicture({token, userData, formData})
-		fetchLoggedInUser(token, setUserData)
+		await uploadProfilePicture({token, userData, formData})
+		await fetchLoggedInUser(token, setUserData)
 	}
 
 	const handleUserLogout = (ev) => {
