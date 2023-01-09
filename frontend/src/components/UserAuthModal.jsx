@@ -4,7 +4,7 @@ import LoginAuth from "./LoginAuth"
 import SignUpAuth from "./SignUpAuth"
 import {useContext} from "react"
 import AppContext from "../lib/AppContext"
-import {deleteToken, getToken} from "../lib/helpers"
+import {deleteToken} from "../lib/helpers"
 import {CloseIcon} from "../lib/Icons"
 import {fetchLoggedInUser, uploadProfilePicture} from "../lib/CRUDs"
 import {host} from "../lib/helpers"
@@ -31,9 +31,8 @@ const UserAuthModal = ({setShowAuthModal, setUserData}) => {
 		formData.append("ref", "plugin::users-permissions.user")
 		formData.append("refId", userData.id)
 
-		const token = getToken()
-		uploadProfilePicture({token, userData, formData})
-		fetchLoggedInUser(token, setUserData)
+		uploadProfilePicture({userData, formData})
+		fetchLoggedInUser(setUserData)
 	}
 
 	const handleUserLogout = (ev) => {

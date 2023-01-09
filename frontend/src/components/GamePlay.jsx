@@ -1,7 +1,6 @@
 import {Fragment, useContext, useEffect, useRef, useState} from "react"
 import AppContext from "../lib/AppContext"
 import {createTodayStat, fetchTodayStat} from "../lib/CRUDs"
-import {getToken} from "../lib/helpers"
 import paragraphTexts from "../lib/paragraph-texts"
 import GameOverStatsCard from "./GameOverStatsCard"
 import "./GamePlay.scss"
@@ -126,7 +125,7 @@ function GamePlay({todayStat, setTodayStat}) {
 	const handleGameOver = () => {
 		setGameState("paused")
 		setTimeElapsed(0)
-		if (typingSpeed < 10) return
+		if (typingSpeed < 10 || !userData) return
 		if (todayStat.ts) {
 			setTodayStat((prev) => {
 				const avg_typing_speed = newAverageSpeed(
@@ -139,11 +138,10 @@ function GamePlay({todayStat, setTodayStat}) {
 				return {ts: {...prev.ts, avg_typing_speed, play_count}, updateFlag: true}
 			})
 		} else {
-			const token = getToken()
 			// create today stat
-			createTodayStat({token, userId: userData.id, typingSpeed})
+			createTodayStat({userId: userData.id, typingSpeed})
 			// fetch today stat
-			fetchTodayStat({token, userId: userData.id, setTodayStat})
+			fetchTodayStat({userId: userData.id, setTodayStat})
 		}
 	}
 

@@ -24,17 +24,17 @@ function App() {
 	const token = getToken()
 
 	useEffect(() => {
-		if (token) fetchLoggedInUser(token, setUserData)
+		if (token) fetchLoggedInUser(setUserData)
 	}, [token])
 
 	useEffect(() => {
-		if (userData) fetchTodayStat({token, userId: userData.id, setTodayStat})
+		if (userData) fetchTodayStat({userId: userData.id, setTodayStat})
 	}, [userData])
 
 	useEffect(() => {
 		if (todayStat.ts) {
-			if (todayStat.updateFlag) updateTodayStat({token, todayStat: todayStat.ts})
-			else updateUserStats({token, userData, todayStatId: todayStat.ts.id})
+			if (todayStat.updateFlag) updateTodayStat({todayStat: todayStat.ts})
+			else updateUserStats({userData, todayStatId: todayStat.ts.id})
 		}
 	}, [todayStat])
 
