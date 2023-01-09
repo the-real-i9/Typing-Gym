@@ -5,11 +5,22 @@ import {host} from "./helpers"
 
 export const fetchLoggedInUser = async (token, setUserData) => {
 	try {
-		const res = await axios.get(`${host}/api/users/me`, {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		})
+		const res = await axios.get(
+			`${host}/api/users/me?${qs.stringify(
+				{
+					populate: ["stats"],
+				},
+				{
+					encodeValuesOnly: true,
+				}
+			)}`,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		)
+        
 		setUserData(res.data)
 	} catch (e) {
 		console.log(e)
@@ -25,6 +36,7 @@ export const createTodayStat = async ({token, userId, typingSpeed}) => {
 					own_user: userId,
 					date: new Date(),
 					avg_typing_speed: typingSpeed,
+					play_count: 1,
 				},
 			},
 			{
@@ -64,6 +76,7 @@ export const fetchTodayStat = async ({token, userId, setTodayStat}) => {
 				},
 			}
 		)
+		if (!res.data.data[0]) return
 		const {
 			id,
 			attributes: {avg_typing_speed, play_count},
@@ -78,11 +91,11 @@ export const fetchTodayStat = async ({token, userId, setTodayStat}) => {
 
 export const updateUserStats = async ({token, userData, todayStatId}) => {
 	try {
-		await axios.put(
+		const res = await axios.put(
 			`${host}/api/users/${userData.id}`,
 			{
 				data: {
-					stats: [...userData.stats, todayStatId],
+					stats: [...userData.stats.map((stat) => stat.id), todayStatId],
 				},
 			},
 			{
@@ -91,6 +104,7 @@ export const updateUserStats = async ({token, userData, todayStatId}) => {
 				},
 			}
 		)
+            console.log(res)
 	} catch (e) {
 		console.log(e)
 	}

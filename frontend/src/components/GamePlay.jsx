@@ -126,6 +126,7 @@ function GamePlay({setTodayStat}) {
 	const handleGameOver = () => {
 		setGameState("paused")
 		setTimeElapsed(0)
+		if (typingSpeed < 10) return
 		setTodayStat((prev) => {
 			if (prev?.ts) {
 				const avg_typing_speed = newAverageSpeed(
@@ -138,7 +139,7 @@ function GamePlay({setTodayStat}) {
 			// create today stat
 			const token = getToken()
 			createTodayStat({ token, userId: userData.id, typingSpeed })
-			fetchTodayStat(token, setTodayStat)
+			fetchTodayStat({token, userId: userData.id, setTodayStat})
 			// fetch today stat
 		})
 	}
