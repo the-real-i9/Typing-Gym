@@ -6,10 +6,10 @@ import {useContext} from "react"
 import AppContext from "../lib/AppContext"
 import {deleteToken, getToken} from "../lib/helpers"
 import {CloseIcon} from "../lib/Icons"
-import {uploadProfilePicture} from "../lib/CRUDs"
+import {fetchLoggedInUser, uploadProfilePicture} from "../lib/CRUDs"
 import {host} from "../lib/helpers"
 
-const UserAuthModal = ({setShowAuthModal}) => {
+const UserAuthModal = ({setShowAuthModal, setUserData}) => {
 	const {userData} = useContext(AppContext)
 
 	const [authType, setAuthType] = useState("signup")
@@ -31,7 +31,9 @@ const UserAuthModal = ({setShowAuthModal}) => {
 		formData.append("ref", "plugin::users-permissions.user")
 		formData.append("refId", userData.id)
 
-		uploadProfilePicture(getToken(), formData)
+		const token = getToken()
+		uploadProfilePicture({token, userData, formData})
+		fetchLoggedInUser(token, setUserData)
 	}
 
 	const handleUserLogout = (ev) => {

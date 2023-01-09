@@ -53,7 +53,7 @@ function App() {
 					<Stats />
 				) : null}
 				{showAuthModal ? (
-					<UserAuthModal setShowAuthModal={setShowAuthModal} />
+					<UserAuthModal setUserData={setUserData} setShowAuthModal={setShowAuthModal} />
 				) : null}
 			</div>
 		</AppContext.Provider>

@@ -20,7 +20,7 @@ export const fetchLoggedInUser = async (token, setUserData) => {
 				},
 			}
 		)
-        
+
 		setUserData(res.data)
 	} catch (e) {
 		console.log(e)
@@ -129,20 +129,18 @@ export const updateTodayStat = async ({token, todayStat}) => {
 	}
 }
 
-export const uploadProfilePicture = async (token, formData) => {
+export const uploadProfilePicture = async ({token, userData, formData}) => {
 	try {
-		const res = await axios.post(
-			`${host}/api/upload`,
-			// {
-			formData,
-			// },
-			{
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			}
-		)
-		console.log(res)
+		await axios.delete(`${host}/api/upload/files/${userData.profile_pic.id}`, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		})
+		await axios.post(`${host}/api/upload`, formData, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		})
 	} catch (e) {
 		console.log(e)
 	}
