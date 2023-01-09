@@ -21,7 +21,6 @@ const GravitySpace = ({
 		})
 
 		const rp = 50 + (-typingSpeed + gravityForcePerc)
-		console.log(rp)
 
 		if (rp < 0) setResPerc(0)
 		else if (rp > 100) {

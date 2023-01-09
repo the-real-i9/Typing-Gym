@@ -16,7 +16,7 @@
       "type": "integer",
       "required": true
     },
-    "ownUser": {
+    "own_user": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
@@ -24,7 +24,7 @@
     "date": {
       "type": "date",
       "required": true,
-      "unique": true
+      "unique": false
     },
     "play_count": {
       "type": "integer",

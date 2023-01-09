@@ -9,3 +9,5 @@ export const getToken = () => {
 export const deleteToken = () => {
     localStorage.removeItem("dev-typing-gym-jwt")
 }
+
+export const host = import.meta.env.VITE_STRAPI_HOST

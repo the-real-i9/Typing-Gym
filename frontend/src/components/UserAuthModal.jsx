@@ -7,7 +7,7 @@ import AppContext from "../lib/AppContext"
 import { deleteToken } from "../lib/helpers"
 import { CloseIcon } from "../lib/Icons"
 
-const UserAuthModal = () => {
+const UserAuthModal = ({ setShowAuthModal }) => {
 	const {userData} = useContext(AppContext)
 
 	const [authType, setAuthType] = useState("signup")
@@ -50,9 +50,9 @@ const UserAuthModal = () => {
 				)}
 			</div>
 			<div className="close-button-wrapper">
-				<div className="close-button">
+				<button onClick={() => setShowAuthModal(false)} className="close-button">
 					<CloseIcon />
-				</div>
+				</button>
 			</div>
 		</div>
 	)
