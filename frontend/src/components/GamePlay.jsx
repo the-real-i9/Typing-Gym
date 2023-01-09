@@ -121,7 +121,7 @@ function GamePlay({todayStat, setTodayStat}) {
 	}, [countdownToStart])
 
 	const newAverageSpeed = (avg_typing_speed, play_count) =>
-		((avg_typing_speed * play_count) + typingSpeed) / (play_count + 1)
+		Math.trunc((avg_typing_speed * play_count + typingSpeed) / (play_count + 1))
 
 	const handleGameOver = () => {
 		setGameState("paused")

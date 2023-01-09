@@ -108,7 +108,6 @@ export const updateUserStats = async ({token, userData, todayStatId}) => {
 }
 
 export const updateTodayStat = async ({token, todayStat}) => {
-    // console.log(todayStat)
 	try {
 		const {id, avg_typing_speed, play_count} = todayStat
 		await axios.put(
