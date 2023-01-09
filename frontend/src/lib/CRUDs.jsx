@@ -16,7 +16,29 @@ export const fetchLoggedInUser = async (token, setUserData) => {
 	}
 }
 
-export const fetchTodayUserStat = async (token, setTodayUserStat) => {
+export const createTodayStat = async ({token, userId, typingSpeed}) => {
+	try {
+		await axios.post(
+			`${host}/api/stats`,
+			{
+				data: {
+					own_user: userId,
+					date: new Date(),
+					avg_typing_speed: typingSpeed,
+				},
+			},
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		)
+	} catch (e) {
+		console.log(e)
+	}
+}
+
+export const fetchTodayStat = async ({token, userId, setTodayStat}) => {
 	try {
 		const res = await axios.get(
 			`${host}/api/stats?${qs.stringify(
@@ -24,7 +46,7 @@ export const fetchTodayUserStat = async (token, setTodayUserStat) => {
 					filters: {
 						own_user: {
 							id: {
-								$eq: userData.id,
+								$eq: userId,
 							},
 						},
 						date: {
@@ -46,15 +68,37 @@ export const fetchTodayUserStat = async (token, setTodayUserStat) => {
 			id,
 			attributes: {avg_typing_speed, play_count},
 		} = res.data.data[0]
-		setTodayUserStat({id, avg_typing_speed, play_count})
+		setTodayStat((prev) => {
+			return {...prev, ts: {id, avg_typing_speed, play_count}}
+		})
 	} catch (e) {
 		console.log(e)
 	}
 }
 
-export const updateTodayStat = async (token, todayUserStat) => {
+export const updateUserStats = async ({token, userData, todayStatId}) => {
 	try {
-		const {id, avg_typing_speed, play_count} = todayUserStat
+		await axios.put(
+			`${host}/api/users/${userData.id}`,
+			{
+				data: {
+					stats: [...userData.stats, todayStatId],
+				},
+			},
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		)
+	} catch (e) {
+		console.log(e)
+	}
+}
+
+export const updateTodayStat = async ({token, todayStat}) => {
+	try {
+		const {id, avg_typing_speed, play_count} = todayStat
 		await axios.put(
 			`${host}/api/stats/${id}`,
 			{

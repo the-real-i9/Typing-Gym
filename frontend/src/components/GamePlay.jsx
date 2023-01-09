@@ -1,11 +1,16 @@
-import {Fragment, useEffect, useRef, useState} from "react"
+import {Fragment, useContext, useEffect, useRef, useState} from "react"
+import AppContext from "../lib/AppContext"
+import { createTodayStat, fetchTodayStat } from "../lib/CRUDs"
+import { getToken } from "../lib/helpers"
 import paragraphTexts from "../lib/paragraph-texts"
 import GameOverStatsCard from "./GameOverStatsCard"
 import "./GamePlay.scss"
 import GamePlayHeader from "./GamePlayHeader"
 import GravitySpace from "./GravitySpace"
 
-function GamePlay() {
+function GamePlay({setTodayStat}) {
+	const {userData} = useContext(AppContext)
+
 	const [gameState, setGameState] = useState("paused")
 
 	const [paragTextWords, setParagTextWords] = useState([])
@@ -59,15 +64,16 @@ function GamePlay() {
 		return () => {
 			clearInterval(intv)
 		}
-	}, [gameState, gameOver])
+	}, [gameState])
 
 	const handleWordInputChange = (ev) => {
 		setTypedChars(ev.target.value)
 	}
 
 	const handleWordInputKeyDown = (ev) => {
-		if (ev.keyCode === 37) ev.preventDefault()
+		if (ev.keyCode === 37) ev.preventDefault() // no middle edits
 		if (ev.keyCode === 32) {
+			// space
 			ev.preventDefault()
 			if (typedChars) {
 				// validation
@@ -111,16 +117,34 @@ function GamePlay() {
 	}, [countdownToStart])
 
 	useEffect(() => {
-		if (countdownToStart === 0) {
-			setGameState("playing")
-		}
+		if (countdownToStart === 0) setGameState("playing")
 	}, [countdownToStart])
 
+	const newAverageSpeed = (avg_typing_speed, play_count) =>
+		(avg_typing_speed * play_count + typingSpeed) / play_count + 1
+
+	const handleGameOver = () => {
+		setGameState("paused")
+		setTimeElapsed(0)
+		setTodayStat((prev) => {
+			if (prev?.ts) {
+				const avg_typing_speed = newAverageSpeed(
+					prev.ts.avg_typing_speed,
+					prev.ts.play_count
+				)
+				const play_count = prev.ts.play_count + 1
+				return {ts: {avg_typing_speed, play_count}, updateFlag: true}
+			}
+			// create today stat
+			const token = getToken()
+			createTodayStat({ token, userId: userData.id, typingSpeed })
+			fetchTodayStat(token, setTodayStat)
+			// fetch today stat
+		})
+	}
+
 	useEffect(() => {
-		if (gameOver) {
-			setGameState("paused")
-			setTimeElapsed(0)
-		}
+		if (gameOver) handleGameOver()
 	}, [gameOver])
 
 	return (

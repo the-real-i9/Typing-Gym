@@ -10,15 +10,16 @@ import UserAuthModal from "./components/UserAuthModal"
 import {getToken} from "./lib/helpers"
 import {
 	fetchLoggedInUser,
-	fetchTodayUserStat,
+	fetchTodayStat,
 	updateTodayStat,
+	updateUserStats,
 } from "./lib/CRUDs"
 
 function App() {
 	const [location, setLocation] = useState("home")
 	const [showAuthModal, setShowAuthModal] = useState(false)
 	const [userData, setUserData] = useState(null)
-	const [todayUserStat, setTodayUserStat] = useState(null)
+	const [todayStat, setTodayStat] = useState({ts: null, updateFlag: false})
 
 	const token = getToken()
 
@@ -27,16 +28,19 @@ function App() {
 	}, [token])
 
 	useEffect(() => {
-		if (userData) fetchTodayUserStat(token, setTodayUserStat)
+		if (userData) fetchTodayStat({token, userId: userData.id, setTodayStat})
 	}, [userData])
 
 	useEffect(() => {
-		// update user stat
-		if (todayUserStat) updateTodayStat(token, todayUserStat)
-	}, [todayUserStat])
+		if (todayStat.ts) {
+			if (todayStat.updateFlag) updateTodayStat({token, todayStat: todayStat.ts})
+			else updateUserStats({token, userData, todayStatId: todayStat.ts.id})
+		}
+	}, [todayStat])
+
 
 	return (
-		<AppContext.Provider value={{location, setLocation, userData, setUserData}}>
+		<AppContext.Provider value={{location, setLocation, userData }}>
 			<div className="app-wrapper">
 				{location !== "gameplay" ? (
 					<Header setShowAuthModal={setShowAuthModal} />
@@ -44,7 +48,7 @@ function App() {
 				{location === "home" ? (
 					<Home />
 				) : location === "gameplay" ? (
-					<GamePlay />
+					<GamePlay setTodayStat={setTodayStat} />
 				) : location === "stats" ? (
 					<Stats />
 				) : null}
