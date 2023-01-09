@@ -1,9 +1,11 @@
 import axios from "axios"
 import qs from "qs"
 
-import {host} from "./helpers"
+import {getToken, host} from "./helpers"
 
-export const fetchLoggedInUser = async (token, setUserData) => {
+const token = getToken()
+
+export const fetchLoggedInUser = async (setUserData) => {
 	try {
 		const res = await axios.get(
 			`${host}/api/users/me?${qs.stringify(
@@ -27,7 +29,7 @@ export const fetchLoggedInUser = async (token, setUserData) => {
 	}
 }
 
-export const createTodayStat = async ({token, userId, typingSpeed}) => {
+export const createTodayStat = async ({userId, typingSpeed}) => {
 	try {
 		await axios.post(
 			`${host}/api/stats`,
@@ -50,7 +52,7 @@ export const createTodayStat = async ({token, userId, typingSpeed}) => {
 	}
 }
 
-export const fetchTodayStat = async ({token, userId, setTodayStat}) => {
+export const fetchTodayStat = async ({userId, setTodayStat}) => {
 	try {
 		const res = await axios.get(
 			`${host}/api/stats?${qs.stringify(
@@ -89,7 +91,7 @@ export const fetchTodayStat = async ({token, userId, setTodayStat}) => {
 	}
 }
 
-export const updateUserStats = async ({token, userData, todayStatId}) => {
+export const updateUserStats = async ({userData, todayStatId}) => {
 	try {
 		const res = await axios.put(
 			`${host}/api/users/${userData.id}`,
@@ -107,7 +109,7 @@ export const updateUserStats = async ({token, userData, todayStatId}) => {
 	}
 }
 
-export const updateTodayStat = async ({token, todayStat}) => {
+export const updateTodayStat = async ({todayStat}) => {
 	try {
 		const {id, avg_typing_speed, play_count} = todayStat
 		await axios.put(
@@ -129,7 +131,7 @@ export const updateTodayStat = async ({token, todayStat}) => {
 	}
 }
 
-export const uploadProfilePicture = async ({token, userData, formData}) => {
+export const uploadProfilePicture = async ({userData, formData}) => {
 	try {
 		await axios.delete(`${host}/api/upload/files/${userData.profile_pic.id}`, {
 			headers: {
