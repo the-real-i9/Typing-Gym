@@ -8,7 +8,7 @@ export const fetchLoggedInUser = async (token, setUserData) => {
 		const res = await axios.get(
 			`${host}/api/users/me?${qs.stringify(
 				{
-					populate: ["stats"],
+					populate: ["stats", "profile_pic"],
 				},
 				{
 					encodeValuesOnly: true,
@@ -20,7 +20,7 @@ export const fetchLoggedInUser = async (token, setUserData) => {
 				},
 			}
 		)
-
+        
 		setUserData(res.data)
 	} catch (e) {
 		console.log(e)
@@ -94,7 +94,7 @@ export const updateUserStats = async ({token, userData, todayStatId}) => {
 		const res = await axios.put(
 			`${host}/api/users/${userData.id}`,
 			{
-					stats: [...userData.stats.map((stat) => stat.id), todayStatId],
+				stats: [...userData.stats.map((stat) => stat.id), todayStatId],
 			},
 			{
 				headers: {
@@ -124,7 +124,25 @@ export const updateTodayStat = async ({token, todayStat}) => {
 				},
 			}
 		)
+	} catch (e) {
+		console.log(e)
+	}
+}
 
+export const uploadProfilePicture = async (token, formData) => {
+	try {
+		const res = await axios.post(
+			`${host}/api/upload`,
+			// {
+			formData,
+			// },
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		)
+		console.log(res)
 	} catch (e) {
 		console.log(e)
 	}

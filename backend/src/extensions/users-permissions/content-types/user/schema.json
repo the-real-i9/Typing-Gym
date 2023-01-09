@@ -67,6 +67,13 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::stat.stat"
+    },
+    "profile_pic": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

@@ -18,14 +18,24 @@ form {
 }
 
 .input-wrapper {
-    @include flex($fd: column)
+    @include flex($fd: column);
+
+    label {
+        @include font(14px);
+    }
+    
+    /* input {
+    
+    } */
 }
 
+.user-profile-pic {
+    @include size(200px);
+    border: 1px solid #000;
 
-label {
-    @include font(14px)
+    input {
+        @include size(100%);
+        opacity: 0;
+        cursor: pointer;
+    }
 }
-
-/* input {
-
-} */
