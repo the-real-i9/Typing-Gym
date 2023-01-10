@@ -152,6 +152,7 @@ function GamePlay({todayStat, setTodayStat}) {
 			// fetch today stat
 			fetchTodayStat({userId: userData.id, setTodayStat})
 		}
+
 	}
 
 	useEffect(() => {

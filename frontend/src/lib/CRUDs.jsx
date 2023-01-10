@@ -22,7 +22,6 @@ export const fetchLoggedInUser = async (setUserData) => {
 				},
 			}
 		)
-
 		setUserData(res.data)
 	} catch (e) {
 		console.log(e)
