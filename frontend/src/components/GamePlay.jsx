@@ -2,17 +2,18 @@ import {Fragment, useContext, useEffect, useRef, useState} from "react"
 import AppContext from "../lib/AppContext"
 import {createTodayStat, fetchTodayStat} from "../lib/CRUDs"
 import paragraphTexts from "../lib/paragraph-texts"
+import commWords from "../lib/communication-words"
 import GameOverStatsCard from "./GameOverStatsCard"
 import "./GamePlay.scss"
 import GamePlayHeader from "./GamePlayHeader"
 import GravitySpace from "./GravitySpace"
 
 function GamePlay({todayStat, setTodayStat}) {
-	const {userData} = useContext(AppContext)
+	const {userData, selectedOption} = useContext(AppContext)
 
 	const [gameState, setGameState] = useState("paused")
 
-	const [paragTextWords, setParagTextWords] = useState([])
+	const [practiceTextWords, setPracticeTextWords] = useState([])
 
 	const [typedChars, setTypedChars] = useState("")
 
@@ -36,10 +37,15 @@ function GamePlay({todayStat, setTodayStat}) {
 	const fillBox = () => {
 		const randParagText =
 			paragraphTexts[Math.trunc(Math.random() * paragraphTexts.length)].body
-		const ptw = randParagText.match(/[^\s]+\s?/g)
-		setParagTextWords(ptw)
+		const randCommWords =
+			commWords[Math.trunc(Math.random() * commWords.length)].body
+		const ptw = (
+			selectedOption === "rand-pt" ? randParagText : randCommWords
+		).match(/[^\s]+\s?/g)
+
+		setPracticeTextWords(ptw)
 		// split a random paragraph text body
-		// set it to paragTextWords
+		// set it to practiceTextWords
 	}
 
 	useEffect(() => {
@@ -76,18 +82,19 @@ function GamePlay({todayStat, setTodayStat}) {
 			ev.preventDefault()
 			if (typedChars) {
 				// validation
-				allCharsTypedCount.current += paragTextWords[currWordIndex].length
-				if (typedChars === paragTextWords[currWordIndex].trim()) {
-					correctCharsTypedCount.current += paragTextWords[currWordIndex].length
+				allCharsTypedCount.current += practiceTextWords[currWordIndex].length
+				if (typedChars === practiceTextWords[currWordIndex].trim()) {
+					correctCharsTypedCount.current +=
+						practiceTextWords[currWordIndex].length
 					setCorrectWordIndexes((prev) => [...prev, currWordIndex])
 				} else {
 					setWrongWordIndexes((prev) => [...prev, currWordIndex])
 				}
 
 				// reset
-				if (currWordIndex === paragTextWords.length - 1) {
+				if (currWordIndex === practiceTextWords.length - 1) {
 					// paragraph done, reset, newparagraph
-					setParagTextWords("")
+					setPracticeTextWords("")
 					setCorrectWordIndexes([])
 					setWrongWordIndexes([])
 					fillBox()
@@ -134,8 +141,10 @@ function GamePlay({todayStat, setTodayStat}) {
 				)
 				const play_count = prev.ts.play_count + 1
 
-
-				return {ts: {...prev.ts, avg_typing_speed, play_count}, updateFlag: true}
+				return {
+					ts: {...prev.ts, avg_typing_speed, play_count},
+					updateFlag: true,
+				}
 			})
 		} else {
 			// create today stat
@@ -162,7 +171,7 @@ function GamePlay({todayStat, setTodayStat}) {
 				<div className="paragraph-text_input-wrapper">
 					<div className="paragraph-text-wrapper">
 						<p>
-							{paragTextWords.map((word, index) =>
+							{practiceTextWords.map((word, index) =>
 								currWordIndex === index ? (
 									<span key={`word-${index}`} id={`word-${index}`}>
 										{word.split("").map((char, chIndex) => {
@@ -241,7 +250,7 @@ function GamePlay({todayStat, setTodayStat}) {
 									</span>
 								)
 							)}
-							{paragTextWords.length ? (
+							{practiceTextWords.length ? (
 								<span className="press-space"> [SPACE]</span>
 							) : (
 								""

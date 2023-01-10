@@ -17,13 +17,40 @@
 }
 
 .htgw-content {
-    height: 350px;
+    // height: 350px;
     margin: 10px 0 15px;
 }
 
 .user-actions {
-    @include flex(space-between, center);
+    @include flex(space-between, flex-end);
 }
+
+.selector-wrapper {
+    position: relative;
+}
+
+button.selected-option {
+    @include size(200px, 36px);
+    border-radius: 9px;
+    border: 1px solid #000;
+    cursor: pointer;
+    @include flex($ai: center);
+    padding-left: 10px;
+}
+
+.options-panel {
+    @include pos;
+    @include size(200px, auto);
+    border: 1px solid #000;
+    margin-top: 3px;
+    border-radius: 9px;
+
+    div {
+        padding: 5px 0 5px 10px;
+        cursor: pointer;
+    }
+}
+
 
 button.start-game {
     border-radius: 9px;

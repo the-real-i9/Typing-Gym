@@ -17,9 +17,11 @@ import {
 
 function App() {
 	const [location, setLocation] = useState("home")
+	const [selectedOption, setSelectedOption] = useState("rand-cw")
 	const [showAuthModal, setShowAuthModal] = useState(false)
 	const [userData, setUserData] = useState(null)
 	const [todayStat, setTodayStat] = useState({ts: null, updateFlag: false})
+
 
 	const token = getToken()
 
@@ -40,7 +42,7 @@ function App() {
 
 
 	return (
-		<AppContext.Provider value={{location, setLocation, userData, setUserData }}>
+		<AppContext.Provider value={{location, setLocation, userData, setUserData, selectedOption, setSelectedOption }}>
 			<div className="app-wrapper">
 				{location !== "gameplay" ? (
 					<Header setShowAuthModal={setShowAuthModal} />
