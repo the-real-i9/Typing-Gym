@@ -78,7 +78,10 @@ export const fetchTodayStat = async ({userId, setTodayStat}) => {
 				},
 			}
 		)
-		if (!res.data.data[0]) return
+		if (!res.data.data[0]) {
+            setTodayStat({ ts: null, updateFlag: false })
+            return
+        }
 		const {
 			id,
 			attributes: {avg_typing_speed, play_count},
