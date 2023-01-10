@@ -13,7 +13,7 @@ const GravitySpace = ({
 
 	useEffect(() => {
 		if (timeElapsed === 0) return
-		const gravityForcePerc = Math.trunc(Math.pow(timeElapsed / 4, 2))/*  + Math.trunc(typingSpeed / 10) */
+		const gravityForcePerc = Math.trunc(Math.pow(timeElapsed / 10, 2))/*  + Math.trunc(typingSpeed / 10) */
 
 		setForces({
 			typForce: typingSpeed,
