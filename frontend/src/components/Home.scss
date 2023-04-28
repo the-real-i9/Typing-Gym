@@ -51,6 +51,12 @@ button.selected-option {
     }
 }
 
+.max-word-wrapper input {
+    @include size(200px, 36px);
+    border-radius: 9px;
+    border: 1px solid #000;
+    padding-left: 10px;
+}
 
 button.start-game {
     border-radius: 9px;
