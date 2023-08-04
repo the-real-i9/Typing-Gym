@@ -96,7 +96,7 @@ export const fetchTodayStat = async ({ userId, setTodayStat }) => {
 
 export const updateUserStats = async ({ userData, todayStatId }) => {
   try {
-    const res = await axios.put(
+    await axios.put(
       `${host}/api/users/${userData.id}`,
       {
         stats: [...userData.stats.map((stat) => stat.id), todayStatId],
