@@ -30,8 +30,8 @@ function GameOverStatsCard({ typingSpeed, finalGrvForce, typAccuracy }) {
           <div className="accuracy">
             Accuracy: <span>{typAccuracy}%</span>
           </div>
-          <button onClick={() => setLocation("stats")} className="view-stats">
-            View Stats
+          <button onClick={() => setLocation("home")} className="back-home-btn">
+            Back Home
           </button>
         </div>
       </div>

@@ -1,6 +1,6 @@
-import { useContext, useState } from "react";
-import AppContext from "../lib/AppContext";
-import "./Home.scss";
+import { useContext, useState } from "react"
+import AppContext from "../lib/AppContext"
+import "./Home.scss"
 
 function Home() {
   const {
@@ -9,18 +9,18 @@ function Home() {
     setSelectedOption,
     randCommWordsMaxWordLength,
     setRandCommWordsMaxWordLength,
-  } = useContext(AppContext);
+  } = useContext(AppContext)
 
-  const [showOptionPanel, setShowOptionPanel] = useState(false);
+  const [showOptionPanel, setShowOptionPanel] = useState(false)
 
   const handleOptionPanel = () => {
-    setShowOptionPanel((prev) => !prev);
-  };
+    setShowOptionPanel((prev) => !prev)
+  }
 
   const handleOptionSelect = (ev) => {
-    setSelectedOption(ev.target.id);
-    setShowOptionPanel(false);
-  };
+    setSelectedOption(ev.target.id)
+    setShowOptionPanel(false)
+  }
 
   return (
     <div className="home-wrapper">
@@ -32,35 +32,14 @@ function Home() {
         <div className="user-actions">
           <div className="selector-wrapper">
             <p>Choose an Option</p>
-            <button
-              type="button"
-              onClick={handleOptionPanel}
+            <select
               className="selected-option"
+              defaultValue={selectedOption}
+              onChange={(ev) => setSelectedOption(ev.target.value)}
             >
-              {selectedOption === "rand-cw"
-                ? "Random Words"
-                : "Random Paragraphs"}
-            </button>
-            {showOptionPanel ? (
-              <div className="options-panel">
-                <div
-                  role="none"
-                  onClick={handleOptionSelect}
-                  id="rand-cw"
-                  className="rand-cw"
-                >
-                  Random Words
-                </div>
-                <div
-                  role="none"
-                  onClick={handleOptionSelect}
-                  id="rand-pt"
-                  className="rand-pt"
-                >
-                  Random Paragraphs
-                </div>
-              </div>
-            ) : null}
+              <option value="Random Words">Random Words</option>
+              <option value="Random Paragraphs">Random Paragraphs</option>
+            </select>
           </div>
           {selectedOption === "rand-cw" ? (
             <div className="max-word-wrapper">
@@ -89,7 +68,7 @@ function Home() {
         <div className="br-table" />
       </div>
     </div>
-  );
+  )
 }
 
-export default Home;
+export default Home

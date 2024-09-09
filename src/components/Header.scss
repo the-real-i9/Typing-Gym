@@ -1,51 +1,17 @@
 @import "../lib/style-deps";
 
 .header-wrapper {
-    @include size(100%, 50px);
-    border-bottom: 1px solid col_grey("g4");
-    @include flex;
-    padding: 0 25px;
+  @include size(100%, 50px);
+  border-bottom: 1px solid col_grey("g4");
+  @include flex;
+  padding: 0 25px;
 }
 
 .logo-wrapper {
-    flex: 1;
-    @include flex($ai: center);
+  flex: 1;
+  @include flex($jc: center, $ai: center);
 }
 
 .logo {
-    @include font(16px, 900);
-}
-
-.nav-wrapper {
-    flex: 2;
-    @include flex;
-}
-
-.nav-item {
-    flex: 1;
-    @include flex(center, center);
-    cursor: pointer;
-    @include font(17px, 400, 17px);
-
-    &.active {
-        box-shadow: inset 0 -2px 0 #000;
-    }
-
-    .text {
-        margin-left: 5px;
-    }
-}
-
-.user-profile-wrapper {
-    flex: 1;
-    @include flex(flex-end, center);
-}
-
-.profile-circle {
-    @include size(40px);
-    @include flex(center, center);
-
-    &:hover {
-        background: col_grey('g2');
-    }
+  @include font(16px, 900);
 }

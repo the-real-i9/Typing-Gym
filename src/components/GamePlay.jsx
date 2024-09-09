@@ -7,7 +7,6 @@ import {
   useState,
 } from "react";
 import AppContext from "../lib/AppContext";
-import { createTodayStat, fetchTodayStat } from "../lib/CRUDs";
 import paragraphTexts from "../lib/paragraph-texts";
 import commWords from "../lib/communication-words";
 import GameOverStatsCard from "./GameOverStatsCard";
@@ -15,7 +14,7 @@ import "./GamePlay.scss";
 import GamePlayHeader from "./GamePlayHeader";
 import GravitySpace from "./GravitySpace";
 
-function GamePlay({ todayStat, setTodayStat }) {
+function GamePlay() {
   const { userData, selectedOption, randCommWordsMaxWordLength } =
     useContext(AppContext);
 
@@ -150,26 +149,7 @@ function GamePlay({ todayStat, setTodayStat }) {
     setGameState("paused");
     setTimeElapsed(0);
     if (typingSpeed < 10 || !userData) return;
-    if (todayStat.ts) {
-      setTodayStat((prev) => {
-        const avg_typing_speed = newAverageSpeed(
-          prev.ts.avg_typing_speed,
-          prev.ts.play_count
-        );
-        const play_count = prev.ts.play_count + 1;
-
-        return {
-          ts: { ...prev.ts, avg_typing_speed, play_count },
-          updateFlag: true,
-        };
-      });
-    } else {
-      // create today stat
-      createTodayStat({ userId: userData.id, typingSpeed });
-      // fetch today stat
-      fetchTodayStat({ userId: userData.id, setTodayStat });
-    }
-  }, [newAverageSpeed, setTodayStat, todayStat.ts, typingSpeed, userData]);
+  }, [newAverageSpeed, typingSpeed]);
 
   useEffect(() => {
     if (gameOver) handleGameOver();

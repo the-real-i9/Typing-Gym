@@ -1,78 +1,87 @@
-@import '../lib/style-deps';
+@import "../lib/style-deps";
 
 .home-wrapper {
-    // @include size($height: 100%);
-    @include flex;
+  // @include size($height: 100%);
+  @include flex;
 }
 
 .left-wrapper {
-    flex: 2;
-    border-right: 1px solid col_grey('g4');
-    padding: 0 25px;
+  flex: 2;
+  border-right: 1px solid col_grey("g4");
+  padding: 0 25px;
 }
 
 .htgw-title {
-    @include font(28px, 900);
-    margin-top: 15px;
+  @include font(28px, 900);
+  margin-top: 15px;
 }
 
 .htgw-content {
-    // height: 350px;
-    margin: 10px 0 15px;
+  // height: 350px;
+  margin: 10px 0 15px;
 }
 
 .user-actions {
-    @include flex(space-between, flex-end);
+  @include flex(space-between, flex-end);
 }
 
 .selector-wrapper {
-    position: relative;
+  position: relative;
+
+  > p {
+    @include font(14px, 600);
+    margin-bottom: 5px;
+  }
 }
 
-button.selected-option {
-    @include size(200px, 36px);
-    border-radius: 9px;
-    border: 1px solid #000;
-    cursor: pointer;
-    @include flex($ai: center);
-    padding-left: 10px;
+select.selected-option {
+  @include size(200px, 36px);
+  border-radius: 9px;
+  border: 1px solid #000;
+  cursor: pointer;
+  @include flex($ai: center);
+  padding-left: 10px;
 }
 
 .options-panel {
-    @include pos;
-    @include size(200px, auto);
-    border: 1px solid #000;
-    margin-top: 3px;
-    border-radius: 9px;
+  @include pos;
+  @include size(200px, auto);
+  border: 1px solid #000;
+  margin-top: 3px;
+  border-radius: 9px;
 
-    div {
-        padding: 5px 0 5px 10px;
-        cursor: pointer;
-    }
+  div {
+    padding: 5px 0 5px 10px;
+    cursor: pointer;
+  }
+}
+
+.max-word-wrapper > p {
+  @include font(14px, 600);
+  margin-bottom: 5px;
 }
 
 .max-word-wrapper input {
-    @include size(200px, 36px);
-    border-radius: 9px;
-    border: 1px solid #000;
-    padding-left: 10px;
+  @include size(200px, 36px);
+  border-radius: 9px;
+  border: 1px solid #000;
+  padding-left: 10px;
 }
 
 button.start-game {
-    border-radius: 9px;
-    background: #000;
-    @include font(14px, 600);
-    color: #fff;
-    padding: 10px 15px;
+  border-radius: 9px;
+  background: #000;
+  @include font(14px, 600);
+  color: #fff;
+  padding: 10px 15px;
 }
 
-
 .right-wrapper {
-    flex: 1;
-    padding: 0 25px;
+  flex: 1;
+  padding: 0 25px;
 }
 
 .br-title {
-    margin-top: 15px;
-    @include font(14px, 600);
+  margin-top: 15px;
+  @include font(14px, 600);
 }
