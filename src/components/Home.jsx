@@ -53,8 +53,10 @@ function Home() {
         </div>
       </div>
       <div className="right-wrapper">
-        <div className="br-title">Your best result</div>
-        <div className="br-table" />
+        <div className="rh-title">Result History</div>
+        <div className="rh-table">
+          Coming soon...
+        </div>
       </div>
     </div>
   )

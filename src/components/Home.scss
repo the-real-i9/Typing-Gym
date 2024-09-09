@@ -77,11 +77,15 @@ button.start-game {
 }
 
 .right-wrapper {
-  flex: 1;
-  padding: 0 25px;
+  flex: 1.25;
+  padding: 0 15px;
 }
 
-.br-title {
-  margin-top: 15px;
+.rh-title {
+  margin: 10px 0;
   @include font(14px, 600);
+}
+
+.rh-table {
+  @include font(14px);
 }
