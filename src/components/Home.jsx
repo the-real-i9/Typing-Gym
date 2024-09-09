@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import AppContext from "../lib/AppContext"
 import "./Home.scss"
 
@@ -10,17 +10,6 @@ function Home() {
     randCommWordsMaxWordLength,
     setRandCommWordsMaxWordLength,
   } = useContext(AppContext)
-
-  const [showOptionPanel, setShowOptionPanel] = useState(false)
-
-  const handleOptionPanel = () => {
-    setShowOptionPanel((prev) => !prev)
-  }
-
-  const handleOptionSelect = (ev) => {
-    setSelectedOption(ev.target.id)
-    setShowOptionPanel(false)
-  }
 
   return (
     <div className="home-wrapper">

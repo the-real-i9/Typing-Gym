@@ -1,5 +1,4 @@
 import {
-  Fragment,
   useCallback,
   useContext,
   useEffect,
@@ -15,7 +14,7 @@ import GamePlayHeader from "./GamePlayHeader";
 import GravitySpace from "./GravitySpace";
 
 function GamePlay() {
-  const { userData, selectedOption, randCommWordsMaxWordLength } =
+  const { selectedOption, randCommWordsMaxWordLength } =
     useContext(AppContext);
 
   const [gameState, setGameState] = useState("paused");
@@ -137,26 +136,18 @@ function GamePlay() {
     if (countdownToStart === 0) setGameState("playing");
   }, [countdownToStart]);
 
-  const newAverageSpeed = useCallback(
-    (avg_typing_speed, play_count) =>
-      Math.trunc(
-        (avg_typing_speed * play_count + typingSpeed) / (play_count + 1)
-      ),
-    [typingSpeed]
-  );
-
   const handleGameOver = useCallback(() => {
     setGameState("paused");
     setTimeElapsed(0);
-    if (typingSpeed < 10 || !userData) return;
-  }, [newAverageSpeed, typingSpeed]);
+    if (typingSpeed < 10) return;
+  }, [typingSpeed]);
 
   useEffect(() => {
     if (gameOver) handleGameOver();
   }, [gameOver, handleGameOver]);
 
   return (
-    <Fragment>
+    <>
       <GamePlayHeader
         timeElapsed={timeElapsed}
         setTimeElapsed={setTimeElapsed}
@@ -285,7 +276,7 @@ function GamePlay() {
           />
         ) : null}
       </div>
-    </Fragment>
+    </>
   );
 }
 
