@@ -1,5 +1,5 @@
 {
-  "name": "type-speed-game",
+  "name": "typing-speed-game",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,11 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "axios": "^1.2.2",
-    "chart.js": "^4.1.2",
-    "qs": "^6.11.0",
     "react": "^18.2.0",
-    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.57.1"
   },
