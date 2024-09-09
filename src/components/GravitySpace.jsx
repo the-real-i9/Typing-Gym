@@ -29,7 +29,7 @@ const GravitySpace = ({
 			setFinalGrvForce(grvForce)
 		} else setResPerc(rp)
 
-	}, [typingSpeed, timeElapsed])
+	}, [typingSpeed, timeElapsed, setGameOver, setFinalGrvForce, grvForce])
 	return (
 		<div className="gravity-space-wrapper">
 			<div className="tff-value">T-Force: {typForce}N</div>

@@ -1,69 +1,75 @@
-import { useEffect, useState } from "react"
-import {PauseIcon, PlayIcon, StopIcon} from "../lib/Icons"
+import { useContext, useEffect, useState } from "react"
+import { PauseIcon, PlayIcon, StopIcon } from "../lib/Icons"
+import AppContext from "../lib/AppContext"
 import "./GameOverStatsCard.scss"
 import "./GamePlayHeader.scss"
 
 const GamePlayHeader = ({
-	timeElapsed,
-	setTimeElapsed,
-	gameState,
-	setGameState,
-	gameOver
+  timeElapsed,
+  setTimeElapsed,
+  gameState,
+  setGameState,
+  gameOver,
 }) => {
-	const formatTimeNum = (timeNum) =>
-		new Intl.NumberFormat("en-US", {minimumIntegerDigits: 2}).format(timeNum)
+  const { setLocation } = useContext(AppContext)
 
-	const [{currMin, currSec}, setCurrTime] = useState({currMin: 0, currSec: 0})
+  const formatTimeNum = (timeNum) =>
+    new Intl.NumberFormat("en-US", { minimumIntegerDigits: 2 }).format(timeNum)
 
-	const gameStopped = () => {
-		setTimeElapsed(0)
-		setGameState("paused")
-		setCurrTime({currMin: 0, currSec: 0})
-		setLocation("home")
-	}
+  const [{ currMin, currSec }, setCurrTime] = useState({
+    currMin: 0,
+    currSec: 0,
+  })
 
-	useEffect(() => {
-		if (gameOver) setCurrTime({currMin: 0, currSec: 0})
-	}, [gameOver])
+  const gameStopped = () => {
+    setTimeElapsed(0)
+    setGameState("paused")
+    setCurrTime({ currMin: 0, currSec: 0 })
+    setLocation("home")
+  }
 
-	useEffect(() => {
-		setCurrTime(() => {
-			const currTime = timeElapsed / 60
-			const currMin = Math.trunc(currTime)
-			const currSec = (currTime - currMin) * 60
+  useEffect(() => {
+    if (gameOver) setCurrTime({ currMin: 0, currSec: 0 })
+  }, [gameOver])
 
-			return {currMin, currSec}
-		})
-	}, [timeElapsed])
+  useEffect(() => {
+    setCurrTime(() => {
+      const currTime = timeElapsed / 60
+      const currMin = Math.trunc(currTime)
+      const currSec = (currTime - currMin) * 60
 
-	return (
-		<div className="header-wrapper">
-			<div className="logo-wrapper">
-				<div className="logo">LOGO</div>
-			</div>
-			<div className="game-rel">
-				<div className="clock">
-					Time:
-					<span className="time-count">{`${formatTimeNum(
-						currMin
-					)}:${formatTimeNum(currSec)}`}</span>
-				</div>
-				<div className="game-controls">
-					<button
-						className="play-pause"
-						onClick={() =>
-							setGameState(gameState === "playing" ? "paused" : "playing")
-						}
-					>
-						{gameState === "playing" ? <PauseIcon /> : <PlayIcon />}
-					</button>
-					<button className="stop" onClick={gameStopped}>
-						<StopIcon />
-					</button>
-				</div>
-			</div>
-		</div>
-	)
+      return { currMin, currSec }
+    })
+  }, [timeElapsed])
+
+  return (
+    <div className="header-wrapper">
+      <div className="logo-wrapper">
+        <div className="logo">LOGO</div>
+      </div>
+      <div className="game-rel">
+        <div className="clock">
+          Time:
+          <span className="time-count">{`${formatTimeNum(
+            currMin
+          )}:${formatTimeNum(currSec)}`}</span>
+        </div>
+        <div className="game-controls">
+          <button
+            className="play-pause"
+            onClick={() =>
+              setGameState(gameState === "playing" ? "paused" : "playing")
+            }
+          >
+            {gameState === "playing" ? <PauseIcon /> : <PlayIcon />}
+          </button>
+          <button className="stop" onClick={gameStopped}>
+            <StopIcon />
+          </button>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default GamePlayHeader
