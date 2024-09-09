@@ -26,8 +26,8 @@ function Home() {
               defaultValue={selectedOption}
               onChange={(ev) => setSelectedOption(ev.target.value)}
             >
-              <option value="Random Words">Random Words</option>
-              <option value="Random Paragraphs">Random Paragraphs</option>
+              <option value="rand-cw">Random Words</option>
+              <option value="rand-pt">Random Paragraphs</option>
             </select>
           </div>
           {selectedOption === "rand-cw" ? (
